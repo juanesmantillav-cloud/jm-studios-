@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Cosecha — Restaurante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050210;--gold:#d4a955;--gold2:#e8c87a;--gold3:rgba(212,169,85,.15);
+  --glass:rgba(255,255,255,.04);--bd:rgba(255,255,255,.08);
+  --text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.45);
+  --r:12px;--ease:cubic-bezier(.25,.46,.45,.94);
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+/* orbs */
+body::before,body::after{content:'';position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+body::before{width:600px;height:600px;background:radial-gradient(circle,rgba(212,169,85,.12),transparent 70%);top:-150px;right:-100px}
+body::after{width:400px;height:400px;background:radial-gradient(circle,rgba(212,169,85,.07),transparent 70%);bottom:50px;left:-100px}
+/* nav */
+nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;padding:0 28px;gap:32px;
+  background:rgba(5,2,16,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
+.nav-logo{font-weight:800;font-size:18px;letter-spacing:-.04em;color:var(--gold);flex-shrink:0;text-decoration:none}
+.nav-links{display:flex;gap:24px;margin-left:auto}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;cursor:pointer}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--gold);color:#1a0f00;border:none;border-radius:8px;padding:8px 18px;
+  font-weight:700;font-size:13px;cursor:pointer;transition:opacity .2s;text-decoration:none}
+.nav-cta:hover{opacity:.88}
+/* hero */
+.hero{position:relative;z-index:1;padding:80px 28px 60px;text-align:center;max-width:700px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold3);
+  border:1px solid rgba(212,169,85,.3);border-radius:20px;padding:5px 14px;
+  font-size:12px;font-weight:600;color:var(--gold);margin-bottom:20px;letter-spacing:.06em}
+.hero h1{font-size:clamp(32px,5vw,54px);font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:16px;color:var(--muted);line-height:1.65;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:#1a0f00;border:none;border-radius:10px;
+  padding:13px 26px;font-weight:700;font-size:14px;cursor:pointer;transition:opacity .2s,transform .2s}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-ghost{background:var(--glass);border:1px solid rgba(212,169,85,.35);color:var(--gold);
+  border-radius:10px;padding:13px 26px;font-weight:600;font-size:14px;cursor:pointer;
+  backdrop-filter:blur(12px);transition:background .2s,transform .2s}
+.btn-ghost:hover{background:rgba(212,169,85,.1);transform:translateY(-1px)}
+/* section */
+section{position:relative;z-index:1;padding:64px 28px;max-width:1000px;margin:0 auto}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.sec-title{font-size:clamp(22px,3vw,34px);font-weight:800;letter-spacing:-.04em;margin-bottom:32px}
+/* menu tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.tab{background:var(--glass);border:1px solid var(--bd);border-radius:8px;
+  padding:8px 18px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+  transition:all .2s;user-select:none}
+.tab.active,.tab:hover{background:rgba(212,169,85,.12);border-color:rgba(212,169,85,.4);color:var(--gold)}
+.menu-panel{display:none}
+.menu-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.menu-item{background:var(--glass);border:1px solid var(--bd);border-radius:var(--r);
+  padding:18px;transition:border-color .2s,background .2s;cursor:default}
+.menu-item:hover{border-color:rgba(212,169,85,.3);background:rgba(212,169,85,.05)}
+.mi-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.mi-name{font-weight:700;font-size:14px}
+.mi-price{font-weight:800;font-size:14px;color:var(--gold);white-space:nowrap}
+.mi-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.mi-tag{display:inline-block;background:rgba(212,169,85,.1);border-radius:4px;
+  padding:2px 7px;font-size:10px;font-weight:600;color:var(--gold);margin-top:8px}
+/* divider */
+.divider{border:none;border-top:1px solid var(--bd);margin:0 28px}
+/* reservation */
+.rez-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em}
+.field input,.field select,.field textarea{
+  background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:8px;
+  padding:10px 13px;color:var(--text);font-family:Inter,sans-serif;font-size:14px;
+  outline:none;transition:border-color .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(212,169,85,.5)}
+.field select option{background:#1a0f00;color:var(--text)}
+.field.full{grid-column:1/-1}
+.field textarea{resize:vertical;min-height:80px}
+.form-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px}
+.form-note{font-size:12px;color:var(--muted)}
+.success-msg{display:none;background:rgba(212,169,85,.12);border:1px solid rgba(212,169,85,.35);
+  border-radius:10px;padding:16px 20px;font-size:14px;font-weight:600;color:var(--gold);margin-top:16px}
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.gal-item{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;
+  background:linear-gradient(135deg,var(--from),var(--to));
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:600;color:rgba(255,255,255,.5);
+  transition:transform .2s,filter .2s;cursor:pointer}
+.gal-item:hover{transform:scale(1.03);filter:brightness(1.15)}
+/* stats */
+.stats{display:flex;gap:32px;flex-wrap:wrap;padding:28px;
+  background:var(--glass);border:1px solid var(--bd);border-radius:16px;margin-bottom:40px}
+.stat{flex:1;min-width:100px;text-align:center}
+.stat-n{font-size:28px;font-weight:800;letter-spacing:-.04em;color:var(--gold)}
+.stat-l{font-size:12px;color:var(--muted);margin-top:4px}
+/* footer */
+footer{position:relative;z-index:1;background:rgba(0,0,0,.4);border-top:1px solid var(--bd);
+  padding:36px 28px;margin-top:40px}
+.foot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:28px;max-width:1000px;margin:0 auto}
+.foot-group h4{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--gold)}
+.foot-group p,.foot-group a{font-size:13px;color:var(--muted);line-height:1.8;text-decoration:none;display:block}
+.foot-group a:hover{color:var(--text)}
+.foot-bottom{max-width:1000px;margin:24px auto 0;padding-top:20px;
+  border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--muted);flex-wrap:wrap;gap:8px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">La Cosecha</a>
+  <div class="nav-links">
+    <a onclick="scrollTo('menu')">Menú</a>
+    <a onclick="scrollTo('reservas')">Reservas</a>
+    <a onclick="scrollTo('galeria')">Galería</a>
+    <a onclick="scrollTo('contacto')">Contacto</a>
+  </div>
+  <a class="nav-cta" onclick="scrollTo('reservas')">Reservar mesa</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">✦ Abierto desde 2018</div>
+  <h1>Sabores que <span>enamoran</span></h1>
+  <p>Cocina de autor con ingredientes de temporada. Cada plato es una experiencia diseñada para sorprenderte.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="scrollTo('menu')">Ver menú</button>
+    <button class="btn-ghost" onclick="scrollTo('reservas')">Reservar mesa</button>
+  </div>
+</div>
+
+<section id="menu">
+  <div class="sec-label">Carta</div>
+  <div class="sec-title">Nuestro Menú</div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">42</div><div class="stat-l">Platos únicos</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Ingredientes locales</div></div>
+    <div class="stat"><div class="stat-n">4.9</div><div class="stat-l">Calificación Google</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">Años de experiencia</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('entradas')">Entradas</div>
+    <div class="tab" onclick="showTab('principales')">Platos Principales</div>
+    <div class="tab" onclick="showTab('postres')">Postres</div>
+    <div class="tab" onclick="showTab('bebidas')">Bebidas</div>
+  </div>
+
+  <div id="entradas" class="menu-panel active">
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Ceviche de Camarón</span><span class="mi-price">$28.000</span></div><div class="mi-desc">Camarones frescos, leche de tigre, ají amarillo, cilantro y maíz tostado.</div><span class="mi-tag">Estrella de la casa</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Carpaccio de Res</span><span class="mi-price">$32.000</span></div><div class="mi-desc">Láminas finas de res angus, rúcula, parmesano y aceite de trufa.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Tostadas de Aguacate</span><span class="mi-price">$22.000</span></div><div class="mi-desc">Pan artesanal tostado, aguacate hass, tomate cherry, semillas y limón.</div><span class="mi-tag">Vegetariano</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Empanadas de Pipián</span><span class="mi-price">$18.000</span></div><div class="mi-desc">Masa crujiente rellena de pollo en salsa pipián rojo, acompañadas de ají.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Sopa de Tomate</span><span class="mi-price">$20.000</span></div><div class="mi-desc">Crema de tomate asado, albahaca fresca y crutones de pan de ajo.</div><span class="mi-tag">Vegetariano</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Tabla de Quesos</span><span class="mi-price">$35.000</span></div><div class="mi-desc">Selección de quesos artesanales colombianos, mermeladas y frutos secos.</div></div>
+  </div>
+
+  <div id="principales" class="menu-panel">
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Lomo al Chimichurri</span><span class="mi-price">$68.000</span></div><div class="mi-desc">Lomo de res a la parrilla con chimichurri criollo, papas rústicas y ensalada verde.</div><span class="mi-tag">Estrella de la casa</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Trucha del Pacífico</span><span class="mi-price">$58.000</span></div><div class="mi-desc">Trucha entera al horno con mantequilla de hierbas, espárragos y risotto de limón.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Pechuga Rellena</span><span class="mi-price">$52.000</span></div><div class="mi-desc">Pechuga de pollo rellena de espinaca y queso, con salsa de hongos silvestres.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Pasta de la Huerta</span><span class="mi-price">$42.000</span></div><div class="mi-desc">Pappardelle fresca con verduras de temporada, pesto de albahaca y parmesano.</div><span class="mi-tag">Vegetariano</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Costillas BBQ</span><span class="mi-price">$72.000</span></div><div class="mi-desc">Costillas de cerdo marinadas 12 horas, glaseadas con BBQ artesanal y puré de maíz.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Corvina Criolla</span><span class="mi-price">$62.000</span></div><div class="mi-desc">Filete de corvina en salsa criolla con patacones, arroz coco y ensalada de aguacate.</div></div>
+  </div>
+
+  <div id="postres" class="menu-panel">
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Marquesa de Chocolate</span><span class="mi-price">$24.000</span></div><div class="mi-desc">Torta húmeda de chocolate belga 70%, crema batida y frambuesas frescas.</div><span class="mi-tag">Estrella de la casa</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Crème Brûlée de Vainilla</span><span class="mi-price">$22.000</span></div><div class="mi-desc">Natilla clásica de vainilla de Madagascar con costra de azúcar caramelizado.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Tres Leches Artesanal</span><span class="mi-price">$20.000</span></div><div class="mi-desc">Bizcocho esponjoso bañado en tres leches, cubierto con merengue italiano tostado.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Helado Artesanal</span><span class="mi-price">$18.000</span></div><div class="mi-desc">Dos bolas a elegir: vainilla, chocolate, maracuyá, guanábana o fresa del bosque.</div></div>
+  </div>
+
+  <div id="bebidas" class="menu-panel">
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Limonada de Coco</span><span class="mi-price">$12.000</span></div><div class="mi-desc">Limón tahití, leche de coco, menta fresca y hielo.</div><span class="mi-tag">Sin alcohol</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Agua de Panela con Limón</span><span class="mi-price">$8.000</span></div><div class="mi-desc">Panela de caña derretida, limón y jengibre. Caliente o fría.</div><span class="mi-tag">Sin alcohol</span></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Sangría de la Casa</span><span class="mi-price">$22.000</span></div><div class="mi-desc">Vino tinto, brandy, naranja, manzana, canela y agua con gas.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Cóctel de Maracuyá</span><span class="mi-price">$28.000</span></div><div class="mi-desc">Ron blanco, maracuyá fresco, limón y soda.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Café de Especialidad</span><span class="mi-price">$10.000</span></div><div class="mi-desc">Café de origen colombiano preparado en V60 o espresso. Huila o Nariño.</div></div>
+    <div class="menu-item"><div class="mi-row"><span class="mi-name">Vino por Copa</span><span class="mi-price">$28.000</span></div><div class="mi-desc">Selección rotativa de vinos tintos y blancos de Chile, Argentina y España.</div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="reservas">
+  <div class="sec-label">Reservaciones</div>
+  <div class="sec-title">Reserva tu Mesa</div>
+  <form id="rez-form" onsubmit="submitReservation(event)">
+    <div class="rez-grid">
+      <div class="field"><label>Nombre completo</label><input type="text" placeholder="Tu nombre" required></div>
+      <div class="field"><label>Correo electrónico</label><input type="email" placeholder="tu@correo.com" required></div>
+      <div class="field"><label>Teléfono</label><input type="tel" placeholder="+57 300 000 0000"></div>
+      <div class="field"><label>Fecha</label><input type="date" required></div>
+      <div class="field">
+        <label>Hora</label>
+        <select required>
+          <option value="">Seleccionar hora</option>
+          <option>12:00 pm</option><option>12:30 pm</option><option>1:00 pm</option>
+          <option>1:30 pm</option><option>7:00 pm</option><option>7:30 pm</option>
+          <option>8:00 pm</option><option>8:30 pm</option><option>9:00 pm</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Número de personas</label>
+        <select required>
+          <option value="">Seleccionar</option>
+          <option>1 persona</option><option>2 personas</option><option>3 personas</option>
+          <option>4 personas</option><option>5–6 personas</option><option>7–10 personas</option><option>Grupo +10</option>
+        </select>
+      </div>
+      <div class="field full"><label>Peticiones especiales</label><textarea placeholder="Cumpleaños, restricciones alimentarias, decoración especial..."></textarea></div>
+    </div>
+    <div class="form-footer">
+      <span class="form-note">Confirmaremos tu reserva por correo en menos de 1 hora.</span>
+      <button type="submit" class="btn-primary">Confirmar reserva</button>
+    </div>
+  </form>
+  <div class="success-msg" id="rez-success">
+    ¡Reserva recibida! Te confirmaremos en menos de 1 hora. ¡Te esperamos con gusto!
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="galeria">
+  <div class="sec-label">Galería</div>
+  <div class="sec-title">Momentos en La Cosecha</div>
+  <div class="gallery">
+    <div class="gal-item" style="--from:#3d2600;--to:#7a4f00">Ambiente</div>
+    <div class="gal-item" style="--from:#2a1800;--to:#5e3600">Terraza</div>
+    <div class="gal-item" style="--from:#1e1200;--to:#4a2d00">Cocina</div>
+    <div class="gal-item" style="--from:#3d2600;--to:#6b4200">Platos</div>
+    <div class="gal-item" style="--from:#2a1a00;--to:#5c3a00">Bar</div>
+    <div class="gal-item" style="--from:#1c1000;--to:#3d2200">Eventos</div>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="foot-grid">
+    <div class="foot-group">
+      <h4>La Cosecha</h4>
+      <p>Cocina de autor con ingredientes de temporada. Desde 2018 en el corazón de la ciudad.</p>
+    </div>
+    <div class="foot-group">
+      <h4>Horarios</h4>
+      <p>Lun–Vie: 12:00 – 10:00 pm</p>
+      <p>Sáb–Dom: 11:00 – 11:00 pm</p>
+      <p>Festivos: 12:00 – 9:00 pm</p>
+    </div>
+    <div class="foot-group">
+      <h4>Contacto</h4>
+      <a href="#">+57 601 234 5678</a>
+      <a href="#">info@lacosecha.co</a>
+      <a href="#">Calle 85 # 11-23, Bogotá</a>
+    </div>
+    <div class="foot-group">
+      <h4>Redes Sociales</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TripAdvisor</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2024 La Cosecha. Todos los derechos reservados.</span>
+    <span>Sitio por <strong style="color:var(--gold)">JM Studios</strong></span>
+  </div>
+</footer>
+
+<script>
+function scrollTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+
+function showTab(id){
+  document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function submitReservation(e){
+  e.preventDefault();
+  document.getElementById('rez-form').style.display='none';
+  document.getElementById('rez-success').style.display='block';
+}
+
+// set min date to today
+var dateInput = document.querySelector('input[type="date"]');
+if(dateInput){
+  var today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  dateInput.value = today;
+}
+</script>
+</body>
+</html>
