@@ -3,318 +3,353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sonrisa CRM — Clínica Dental</title>
+<title>Sonrisa CRM — Panel Clínica Dental</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#011a1f;--cy:#22d3ee;--cy2:#67e8f9;--cy3:rgba(34,211,238,.12);
-  --glass:rgba(255,255,255,.04);--bd:rgba(255,255,255,.08);
-  --text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.45);
-  --r:12px;
+  --cy:#06b6d4;--cy2:#22d3ee;--cy3:rgba(6,182,212,.12);
+  --sb:#0f172a;--sb2:#1e293b;
+  --bg:#f1f5f9;--card:white;
+  --text:#0f172a;--muted:#64748b;--faint:#94a3b8;
+  --bd:#e2e8f0;--bd2:#cbd5e1;
+  --green:#16a34a;--green-bg:#dcfce7;--green-bd:#bbf7d0;
+  --amber:#d97706;--amber-bg:#fef3c7;--amber-bd:#fde68a;
+  --red:#dc2626;--red-bg:#fee2e2;--red-bd:#fca5a5;
+  --r:8px;--sidebar:200px;
 }
-html{scroll-behavior:smooth}
-body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(34,211,238,.1),transparent 70%);top:-100px;right:-150px;pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;width:350px;height:350px;border-radius:50%;
-  background:radial-gradient(circle,rgba(6,182,212,.07),transparent 70%);bottom:100px;left:-50px;pointer-events:none;z-index:0}
-nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;padding:0 28px;gap:24px;
-  background:rgba(1,20,26,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
-.nav-logo{font-weight:800;font-size:18px;letter-spacing:-.04em;flex-shrink:0;cursor:pointer}
-.nav-logo span{color:var(--cy)}
-.nav-links{display:flex;gap:20px;margin-left:auto}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;cursor:pointer}
-.nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--cy);color:#001a1f;border:none;border-radius:8px;padding:8px 18px;
-  font-weight:700;font-size:13px;cursor:pointer;transition:opacity .2s}
-.nav-cta:hover{opacity:.85}
-.hero{position:relative;z-index:1;padding:72px 28px 56px;max-width:800px;margin:0 auto;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--cy3);
-  border:1px solid rgba(34,211,238,.3);border-radius:20px;padding:5px 14px;
-  font-size:12px;font-weight:700;color:var(--cy);margin-bottom:20px;letter-spacing:.06em}
-.hero h1{font-size:clamp(28px,4.5vw,50px);font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:14px}
-.hero h1 span{background:linear-gradient(135deg,var(--cy),var(--cy2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{font-size:16px;color:var(--muted);line-height:1.65;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-primary{background:var(--cy);color:#001a1f;border:none;border-radius:10px;
-  padding:13px 26px;font-weight:700;font-size:14px;cursor:pointer;transition:opacity .2s,transform .2s}
-.btn-primary:hover{opacity:.85;transform:translateY(-1px)}
-.btn-ghost{background:var(--glass);border:1px solid rgba(34,211,238,.35);color:var(--cy);
-  border-radius:10px;padding:13px 26px;font-weight:600;font-size:14px;cursor:pointer;
-  backdrop-filter:blur(12px);transition:background .2s,transform .2s}
-.btn-ghost:hover{background:rgba(34,211,238,.1);transform:translateY(-1px)}
-section{position:relative;z-index:1;padding:56px 28px;max-width:1000px;margin:0 auto}
-.sec-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--cy);text-transform:uppercase;margin-bottom:8px}
-.sec-title{font-size:clamp(20px,3vw,32px);font-weight:800;letter-spacing:-.04em;margin-bottom:32px}
-.divider{border:none;border-top:1px solid var(--bd);margin:0 28px}
-/* services */
-.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-.svc-card{background:var(--glass);border:1px solid var(--bd);border-radius:var(--r);
-  padding:20px;transition:border-color .2s,background .2s;cursor:default}
-.svc-card:hover{border-color:rgba(34,211,238,.3);background:rgba(34,211,238,.04)}
-.svc-icon{font-size:24px;margin-bottom:10px}
-.svc-name{font-size:14px;font-weight:700;margin-bottom:4px}
-.svc-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px}
-.svc-price{font-size:13px;font-weight:700;color:var(--cy)}
-/* team */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-.doc-card{background:var(--glass);border:1px solid var(--bd);border-radius:var(--r);
-  padding:20px;text-align:center;transition:border-color .2s}
-.doc-card:hover{border-color:rgba(34,211,238,.3)}
-.doc-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--cy),#0891b2);
-  margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#001a1f}
-.doc-name{font-size:15px;font-weight:700;margin-bottom:4px}
-.doc-spec{font-size:12px;color:var(--cy);font-weight:600;margin-bottom:6px}
-.doc-exp{font-size:12px;color:var(--muted)}
-/* booking stepper */
-.stepper{display:flex;gap:0;margin-bottom:28px}
-.step{flex:1;display:flex;align-items:center;gap:0}
-.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;flex-shrink:0;transition:all .3s;border:2px solid var(--bd);color:var(--muted)}
-.step-num.active{background:var(--cy);border-color:var(--cy);color:#001a1f}
-.step-num.done{background:rgba(34,211,238,.2);border-color:var(--cy);color:var(--cy)}
-.step-label{font-size:11px;color:var(--muted);margin-left:8px;font-weight:500;white-space:nowrap}
-.step-label.active{color:var(--cy)}
-.step-line{flex:1;height:2px;background:var(--bd);margin:0 8px}
-.step-line.done{background:var(--cy);opacity:.4}
-.booking-panel{display:none}
-.booking-panel.active{display:block}
-.service-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px}
-.svc-opt{background:var(--glass);border:1px solid var(--bd);border-radius:10px;
-  padding:14px;cursor:pointer;transition:all .2s}
-.svc-opt:hover,.svc-opt.selected{background:rgba(34,211,238,.1);border-color:rgba(34,211,238,.4)}
-.svc-opt-name{font-size:13px;font-weight:700;margin-bottom:3px}
-.svc-opt-price{font-size:12px;color:var(--cy);font-weight:600}
-.doc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
-.doc-opt{background:var(--glass);border:1px solid var(--bd);border-radius:10px;
-  padding:14px;cursor:pointer;transition:all .2s;text-align:center}
-.doc-opt:hover,.doc-opt.selected{background:rgba(34,211,238,.1);border-color:rgba(34,211,238,.4)}
-.doc-opt-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--cy),#0891b2);
-  margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#001a1f;font-size:14px}
-.doc-opt-name{font-size:12px;font-weight:600}
-.time-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-bottom:20px}
-.time-slot{background:var(--glass);border:1px solid var(--bd);border-radius:8px;
-  padding:8px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-.time-slot:hover,.time-slot.selected{background:rgba(34,211,238,.12);border-color:rgba(34,211,238,.4);color:var(--cy)}
-.time-slot.taken{opacity:.3;cursor:not-allowed;pointer-events:none;text-decoration:line-through}
-.step-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
-.btn-back{background:var(--glass);border:1px solid var(--bd);border-radius:10px;
-  padding:10px 20px;font-weight:600;font-size:14px;cursor:pointer;color:var(--muted);transition:all .2s}
-.btn-back:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
-.btn-next{background:var(--cy);color:#001a1f;border:none;border-radius:10px;
-  padding:10px 22px;font-weight:700;font-size:14px;cursor:pointer;transition:opacity .2s}
-.btn-next:hover{opacity:.85}
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em}
-.field input,.field select{
-  background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:8px;
-  padding:10px 13px;color:var(--text);font-family:Inter,sans-serif;font-size:14px;
-  outline:none;transition:border-color .2s}
-.field input:focus,.field select:focus{border-color:rgba(34,211,238,.5)}
-.booking-success{display:none;text-align:center;padding:40px 20px}
-.bs-icon{font-size:48px;margin-bottom:16px}
-.bs-title{font-size:22px;font-weight:800;color:var(--cy);margin-bottom:8px}
-.bs-sub{font-size:14px;color:var(--muted);max-width:360px;margin:0 auto;line-height:1.65}
-footer{position:relative;z-index:1;background:rgba(0,0,0,.4);border-top:1px solid var(--bd);padding:36px 28px;margin-top:40px}
-.foot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:28px;max-width:1000px;margin:0 auto}
-.foot-group h4{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--cy)}
-.foot-group p,.foot-group a{font-size:13px;color:var(--muted);line-height:1.8;text-decoration:none;display:block}
-.foot-group a:hover{color:var(--text)}
-.foot-bottom{max-width:1000px;margin:24px auto 0;padding-top:20px;border-top:1px solid var(--bd);
-  display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted);flex-wrap:wrap;gap:8px}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
+/* TOP BAR */
+.topbar{
+  height:52px;background:white;border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;z-index:10;
+}
+.tb-logo{width:24px;height:24px;background:linear-gradient(135deg,var(--cy),#0891b2);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0}
+.tb-name{font-size:15px;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+.tb-name span{color:var(--cy)}
+.tb-sep{width:1px;height:20px;background:var(--bd);margin:0 2px}
+.tb-date{font-size:13px;color:var(--muted)}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.tb-notif{position:relative;cursor:pointer}
+.tb-notif svg{width:18px;height:18px;color:var(--muted)}
+.tb-notif-dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#ef4444;border:2px solid white}
+.tb-user{display:flex;align-items:center;gap:8px;cursor:pointer}
+.tb-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--cy),#0891b2);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0}
+.tb-uname{font-size:13px;font-weight:600;color:var(--text)}
+
+/* LAYOUT */
+.app{display:flex;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar);background:var(--sb);
+  display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;
+}
+.sb-logo{padding:18px 14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-lname{font-size:13px;font-weight:700;color:white;letter-spacing:-.02em}
+.sb-role{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px}
+.sb-section{padding:8px 8px}
+.sb-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;color:rgba(148,163,184,.4);
+  text-transform:uppercase;padding:0 6px;margin:8px 0 4px}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 8px;border-radius:6px;
+  font-size:12px;font-weight:500;color:rgba(148,163,184,.7);cursor:pointer;transition:all .15s;user-select:none}
+.sb-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.85)}
+.sb-item.active{background:rgba(6,182,212,.15);color:var(--cy2);font-weight:600}
+.sb-item svg{width:14px;height:14px;flex-shrink:0;opacity:.7}
+.sb-item.active svg{opacity:1}
+.sb-badge{margin-left:auto;background:#ef4444;color:white;border-radius:4px;
+  padding:1px 5px;font-size:9px;font-weight:700}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
+
+/* HEADER */
+.page-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.page-title{font-size:18px;font-weight:800;letter-spacing:-.03em}
+.page-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.btn-new{background:var(--cy);color:white;border:none;border-radius:7px;
+  padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity .2s}
+.btn-new:hover{opacity:.88}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;
+  display:flex;align-items:flex-start;gap:12px}
+.kpi-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.kpi-body{flex:1}
+.kpi-val{font-size:26px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.kpi-lbl{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* AGENDA */
+.agenda-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.ac-head{padding:14px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.ac-title{font-size:14px;font-weight:700}
+.ac-date{font-size:12px;color:var(--muted);background:var(--bg);border-radius:5px;padding:4px 10px;font-weight:600}
+.cita-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--bd);transition:background .15s;cursor:default}
+.cita-row:last-child{border-bottom:none}
+.cita-row:hover{background:#f8fafc}
+.cita-hora{font-size:12px;font-weight:700;color:var(--cy);width:36px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.cita-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0}
+.cita-info{flex:1}
+.cita-nombre{font-size:13px;font-weight:600}
+.cita-detalle{font-size:11px;color:var(--muted);margin-top:1px}
+.cita-doc{font-size:11px;color:var(--muted);flex-shrink:0;text-align:right;min-width:80px}
+.cita-doc span{display:block;font-size:10px;color:var(--faint)}
+.cbadge{padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700}
+.cbadge.done{background:var(--green-bg);color:var(--green)}
+.cbadge.pending{background:var(--amber-bg);color:var(--amber)}
+.cbadge.urgent{background:var(--red-bg);color:var(--red)}
+.cbadge.sched{background:#e0f2fe;color:#0284c7}
+
+/* 2-col */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* PATIENTS table */
+.table-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.tc-head{padding:12px 14px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.tc-title{font-size:13px;font-weight:700}
+.tc-btn{font-size:11px;color:var(--cy);font-weight:600;background:none;border:none;cursor:pointer;padding:0}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--faint);padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);background:#f8fafc}
+tbody tr{border-bottom:1px solid rgba(226,232,240,.6);transition:background .12s;cursor:default}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#f8fafc}
+td{padding:8px 12px;font-size:12px;color:var(--text)}
+.td-name{font-weight:600}
+.td-muted{color:var(--muted)}
+
+/* STATS card */
+.stats-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px}
+.sc-title{font-size:13px;font-weight:700;margin-bottom:12px}
+.stat-bar-row{margin-bottom:10px}
+.sbr-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.sbr-lbl{font-weight:500;color:var(--muted)}
+.sbr-val{font-weight:700}
+.sbr-track{height:6px;background:var(--bd);border-radius:3px;overflow:hidden}
+.sbr-fill{height:100%;border-radius:3px;transition:width 1s ease}
+
+/* NUEVA CITA modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:50;
+  display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:12px;width:min(480px,100%);max-height:90vh;overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.modal-head{padding:18px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:15px;font-weight:700}
+.modal-close{width:26px;height:26px;border-radius:50%;background:var(--bg);border:none;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--muted)}
+.modal-body{padding:20px;display:flex;flex-direction:column;gap:12px}
+.mfield label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.mfield input,.mfield select{
+  width:100%;border:1px solid var(--bd2);border-radius:6px;padding:9px 12px;
+  color:var(--text);font-family:Inter,sans-serif;font-size:13px;outline:none;transition:border-color .2s}
+.mfield input:focus,.mfield select:focus{border-color:var(--cy)}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-foot{padding:14px 20px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:8px}
+.btn-cancel{background:var(--bg);border:1px solid var(--bd2);border-radius:6px;
+  padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
+.btn-cancel:hover{color:var(--text)}
+.btn-save{background:var(--cy);color:white;border:none;border-radius:6px;
+  padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .2s}
+.btn-save:hover{opacity:.88}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo"><span>Sonrisa</span> CRM</div>
-  <div class="nav-links">
-    <a onclick="scrollSec('servicios')">Servicios</a>
-    <a onclick="scrollSec('equipo')">Equipo</a>
-    <a onclick="scrollSec('citas')">Reservar cita</a>
-    <a onclick="scrollSec('contacto')">Contacto</a>
-  </div>
-  <button class="nav-cta" onclick="scrollSec('citas')">Agendar cita</button>
-</nav>
-
-<div class="hero">
-  <div class="hero-badge">✦ +1.200 pacientes satisfechos</div>
-  <h1>Tu <span>sonrisa</span><br>nuestra misión</h1>
-  <p>Clínica dental moderna con sistema CRM propio. Citas online, historial clínico digitalizado e inventario en tiempo real.</p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="scrollSec('citas')">Agendar cita</button>
-    <button class="btn-ghost" onclick="scrollSec('servicios')">Ver servicios</button>
+<!-- Top bar -->
+<div class="topbar">
+  <div class="tb-logo">S</div>
+  <div class="tb-name"><span>Sonrisa</span> CRM</div>
+  <div class="tb-sep"></div>
+  <div class="tb-date" id="tb-date"></div>
+  <div class="tb-right">
+    <div class="tb-notif">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <div class="tb-notif-dot"></div>
+    </div>
+    <div class="tb-user">
+      <div class="tb-avatar">AL</div>
+      <div class="tb-uname">Dra. Ana Lozano</div>
+    </div>
   </div>
 </div>
 
-<section id="servicios">
-  <div class="sec-label">Servicios</div>
-  <div class="sec-title">Tratamientos Disponibles</div>
-  <div class="svc-grid">
-    <div class="svc-card"><div class="svc-icon">🦷</div><div class="svc-name">Limpieza dental</div><div class="svc-desc">Remoción de placa y sarro, pulido dental y aplicación de flúor.</div><div class="svc-price">Desde $80.000</div></div>
-    <div class="svc-card"><div class="svc-icon">✨</div><div class="svc-name">Blanqueamiento</div><div class="svc-desc">Blanqueamiento profesional con luz LED. Resultados en una sesión.</div><div class="svc-price">Desde $250.000</div></div>
-    <div class="svc-card"><div class="svc-icon">🔧</div><div class="svc-name">Ortodoncia</div><div class="svc-desc">Brackets metálicos, zafiro o alineadores invisibles Invisalign.</div><div class="svc-price">Desde $1.500.000</div></div>
-    <div class="svc-card"><div class="svc-icon">💊</div><div class="svc-name">Endodoncia</div><div class="svc-desc">Tratamiento de conducto con anestesia de última generación. Sin dolor.</div><div class="svc-price">Desde $350.000</div></div>
-    <div class="svc-card"><div class="svc-icon">🏥</div><div class="svc-name">Cirugía oral</div><div class="svc-desc">Extracciones, implantes dentales y cirugía de terceros molares.</div><div class="svc-price">Desde $200.000</div></div>
-    <div class="svc-card"><div class="svc-icon">👶</div><div class="svc-name">Odontopediatría</div><div class="svc-desc">Atención especializada para niños en ambiente amigable y sin estrés.</div><div class="svc-price">Desde $70.000</div></div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<section id="equipo">
-  <div class="sec-label">Especialistas</div>
-  <div class="sec-title">Nuestro Equipo</div>
-  <div class="team-grid">
-    <div class="doc-card"><div class="doc-avatar">AL</div><div class="doc-name">Dra. Ana Lozano</div><div class="doc-spec">Ortodoncia · Invisalign</div><div class="doc-exp">12 años de experiencia</div></div>
-    <div class="doc-card"><div class="doc-avatar">CR</div><div class="doc-name">Dr. Carlos Reyes</div><div class="doc-spec">Cirugía oral e implantes</div><div class="doc-exp">8 años de experiencia</div></div>
-    <div class="doc-card"><div class="doc-avatar">MV</div><div class="doc-name">Dra. María Valencia</div><div class="doc-spec">Odontopediatría</div><div class="doc-exp">10 años de experiencia</div></div>
-    <div class="doc-card"><div class="doc-avatar">JP</div><div class="doc-name">Dr. Jorge Peña</div><div class="doc-spec">Endodoncia y restauración</div><div class="doc-exp">15 años de experiencia</div></div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<section id="citas">
-  <div class="sec-label">Agenda tu cita</div>
-  <div class="sec-title">Reservar Cita Online</div>
-
-  <div class="stepper">
-    <div class="step"><div class="step-num active" id="snum1">1</div><span class="step-label active" id="slbl1">Servicio</span></div>
-    <div class="step-line" id="sline1"></div>
-    <div class="step"><div class="step-num" id="snum2">2</div><span class="step-label" id="slbl2">Especialista</span></div>
-    <div class="step-line" id="sline2"></div>
-    <div class="step"><div class="step-num" id="snum3">3</div><span class="step-label" id="slbl3">Fecha y hora</span></div>
-    <div class="step-line" id="sline3"></div>
-    <div class="step"><div class="step-num" id="snum4">4</div><span class="step-label" id="slbl4">Datos</span></div>
-  </div>
-
-  <div id="booking-success" class="booking-success">
-    <div class="bs-icon">🦷</div>
-    <div class="bs-title">¡Cita confirmada!</div>
-    <div class="bs-sub">Te hemos enviado la confirmación por correo. Recuerda llegar 10 min antes de tu cita.</div>
-  </div>
-
-  <!-- Step 1 -->
-  <div class="booking-panel active" id="bp1">
-    <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Selecciona el tratamiento que necesitas:</p>
-    <div class="service-list">
-      <div class="svc-opt" onclick="selectOpt(this,'svc')"><div class="svc-opt-name">Limpieza dental</div><div class="svc-opt-price">$80.000</div></div>
-      <div class="svc-opt" onclick="selectOpt(this,'svc')"><div class="svc-opt-name">Blanqueamiento</div><div class="svc-opt-price">$250.000</div></div>
-      <div class="svc-opt" onclick="selectOpt(this,'svc')"><div class="svc-opt-name">Ortodoncia</div><div class="svc-opt-price">$1.500.000</div></div>
-      <div class="svc-opt" onclick="selectOpt(this,'svc')"><div class="svc-opt-name">Endodoncia</div><div class="svc-opt-price">$350.000</div></div>
-      <div class="svc-opt" onclick="selectOpt(this,'svc')"><div class="svc-opt-name">Cirugía oral</div><div class="svc-opt-price">$200.000</div></div>
-      <div class="svc-opt" onclick="selectOpt(this,'svc')"><div class="svc-opt-name">Odontopediatría</div><div class="svc-opt-price">$70.000</div></div>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-lname">Sonrisa CRM</div>
+      <div class="sb-role">Clínica Dental · Bogotá</div>
     </div>
-    <div class="step-btns"><button class="btn-next" onclick="goStep(2)">Siguiente</button></div>
-  </div>
+    <div class="sb-section">
+      <div class="sb-lbl">Menú</div>
+      <div class="sb-item active" onclick="setActive(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+      <div class="sb-item" onclick="setActive(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Pacientes
+        <span class="sb-badge">1.2k</span>
+      </div>
+      <div class="sb-item" onclick="setActive(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Citas
+        <span class="sb-badge">12</span>
+      </div>
+      <div class="sb-item" onclick="setActive(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Historial
+      </div>
+      <div class="sb-item" onclick="setActive(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Reportes
+      </div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-lbl">Clínica</div>
+      <div class="sb-item" onclick="setActive(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+        Inventario
+      </div>
+      <div class="sb-item" onclick="setActive(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Configuración
+      </div>
+    </div>
+  </aside>
 
-  <!-- Step 2 -->
-  <div class="booking-panel" id="bp2">
-    <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Elige tu especialista:</p>
-    <div class="doc-list">
-      <div class="doc-opt" onclick="selectOpt(this,'doc')"><div class="doc-opt-avatar">AL</div><div class="doc-opt-name">Dra. Ana Lozano</div></div>
-      <div class="doc-opt" onclick="selectOpt(this,'doc')"><div class="doc-opt-avatar">CR</div><div class="doc-opt-name">Dr. Carlos Reyes</div></div>
-      <div class="doc-opt" onclick="selectOpt(this,'doc')"><div class="doc-opt-avatar">MV</div><div class="doc-opt-name">Dra. María Valencia</div></div>
-      <div class="doc-opt" onclick="selectOpt(this,'doc')"><div class="doc-opt-avatar">JP</div><div class="doc-opt-name">Dr. Jorge Peña</div></div>
-    </div>
-    <div class="step-btns">
-      <button class="btn-back" onclick="goStep(1)">Atrás</button>
-      <button class="btn-next" onclick="goStep(3)">Siguiente</button>
-    </div>
-  </div>
+  <!-- Main -->
+  <main class="main">
 
-  <!-- Step 3 -->
-  <div class="booking-panel" id="bp3">
-    <div class="field" style="max-width:220px"><label>Selecciona la fecha</label><input type="date" id="appt-date"></div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Horarios disponibles:</p>
-    <div class="time-grid">
-      <div class="time-slot" onclick="selectOpt(this,'time')">8:00 am</div>
-      <div class="time-slot" onclick="selectOpt(this,'time')">8:30 am</div>
-      <div class="time-slot taken">9:00 am</div>
-      <div class="time-slot" onclick="selectOpt(this,'time')">9:30 am</div>
-      <div class="time-slot taken">10:00 am</div>
-      <div class="time-slot" onclick="selectOpt(this,'time')">10:30 am</div>
-      <div class="time-slot" onclick="selectOpt(this,'time')">11:00 am</div>
-      <div class="time-slot taken">2:00 pm</div>
-      <div class="time-slot" onclick="selectOpt(this,'time')">2:30 pm</div>
-      <div class="time-slot" onclick="selectOpt(this,'time')">3:00 pm</div>
-      <div class="time-slot taken">3:30 pm</div>
-      <div class="time-slot" onclick="selectOpt(this,'time')">4:00 pm</div>
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">Dashboard</div>
+        <div class="page-sub">Hoy hay 12 citas · 3 urgencias pendientes</div>
+      </div>
+      <button class="btn-new" onclick="openModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nueva cita
+      </button>
     </div>
-    <div class="step-btns">
-      <button class="btn-back" onclick="goStep(2)">Atrás</button>
-      <button class="btn-next" onclick="goStep(4)">Siguiente</button>
-    </div>
-  </div>
 
-  <!-- Step 4 -->
-  <div class="booking-panel" id="bp4">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px">
-      <div class="field"><label>Nombre completo</label><input type="text" placeholder="Tu nombre completo"></div>
-      <div class="field"><label>Documento de identidad</label><input type="text" placeholder="CC 1234567890"></div>
-      <div class="field"><label>Correo electrónico</label><input type="email" placeholder="tu@correo.com"></div>
-      <div class="field"><label>Teléfono / WhatsApp</label><input type="tel" placeholder="+57 300 000 0000"></div>
+    <!-- KPIs -->
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-icon" style="background:#e0f2fe;font-size:18px">📅</div>
+        <div class="kpi-body"><div class="kpi-val" style="color:#0284c7">12</div><div class="kpi-lbl">Citas hoy</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon" style="background:#fee2e2;font-size:18px">🚨</div>
+        <div class="kpi-body"><div class="kpi-val" style="color:#dc2626">3</div><div class="kpi-lbl">Urgencias</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon" style="background:#dcfce7;font-size:18px">✓</div>
+        <div class="kpi-body"><div class="kpi-val" style="color:#16a34a">94%</div><div class="kpi-lbl">Asistencia</div></div>
+      </div>
     </div>
-    <div class="step-btns">
-      <button class="btn-back" onclick="goStep(3)">Atrás</button>
-      <button class="btn-next" onclick="confirmBooking()">Confirmar cita</button>
-    </div>
-  </div>
-</section>
 
-<footer id="contacto">
-  <div class="foot-grid">
-    <div class="foot-group"><h4>Sonrisa CRM</h4><p>Clínica dental con sistema CRM propio. Gestión total de pacientes, citas e inventario.</p></div>
-    <div class="foot-group"><h4>Horarios</h4><p>Lun–Vie: 7:00 am – 7:00 pm</p><p>Sábado: 8:00 am – 2:00 pm</p></div>
-    <div class="foot-group"><h4>Contacto</h4><a href="#">+57 601 987 6543</a><a href="#">citas@sonrisacrm.co</a><a href="#">Cll 100 # 14-30, Bogotá</a></div>
-    <div class="foot-group"><h4>Emergencias</h4><p>Línea 24h: +57 320 987 6543</p><p>WhatsApp disponible</p></div>
+    <!-- Agenda -->
+    <div class="agenda-card">
+      <div class="ac-head">
+        <span class="ac-title">Agenda de hoy</span>
+        <span class="ac-date" id="ac-date-lbl">Cargando...</span>
+      </div>
+      <div class="cita-row"><div class="cita-hora">8:00</div><div class="cita-avatar" style="background:#e0f2fe;color:#0284c7">MG</div><div class="cita-info"><div class="cita-nombre">María García</div><div class="cita-detalle">Limpieza dental · Dra. Ana Lozano</div></div><div class="cita-doc">CC 52.345.678<span>Ficha #0234</span></div><span class="cbadge done">Completada</span></div>
+      <div class="cita-row"><div class="cita-hora">9:30</div><div class="cita-avatar" style="background:#f0fdf4;color:#16a34a">CR</div><div class="cita-info"><div class="cita-nombre">Carlos Ríos</div><div class="cita-detalle">Extracción muela del juicio · Dr. Carlos Reyes</div></div><div class="cita-doc">CC 80.123.456<span>Ficha #0187</span></div><span class="cbadge done">Completada</span></div>
+      <div class="cita-row"><div class="cita-hora">11:00</div><div class="cita-avatar" style="background:#fffbeb;color:#d97706">AM</div><div class="cita-info"><div class="cita-nombre">Ana Moreno</div><div class="cita-detalle">Control ortodoncia · Dra. Ana Lozano</div></div><div class="cita-doc">CC 1.020.456.789<span>Ficha #0412</span></div><span class="cbadge pending">En sala</span></div>
+      <div class="cita-row"><div class="cita-hora">2:00</div><div class="cita-avatar" style="background:#fef2f2;color:#dc2626">LP</div><div class="cita-info"><div class="cita-nombre">Luis Pérez</div><div class="cita-detalle">Urgencia: dolor molar · Dr. Jorge Peña</div></div><div class="cita-doc">CC 19.876.543<span>Nuevo paciente</span></div><span class="cbadge urgent">Urgente</span></div>
+      <div class="cita-row"><div class="cita-hora">3:30</div><div class="cita-avatar" style="background:#f0f9ff;color:#0369a1">SR</div><div class="cita-info"><div class="cita-nombre">Sofía Ramírez</div><div class="cita-detalle">Blanqueamiento dental · Dra. Ana Lozano</div></div><div class="cita-doc">CC 1.014.567.890<span>Ficha #0301</span></div><span class="cbadge sched">Programada</span></div>
+      <div class="cita-row"><div class="cita-hora">5:00</div><div class="cita-avatar" style="background:#f5f3ff;color:#7c3aed">JV</div><div class="cita-info"><div class="cita-nombre">Jorge Vargas</div><div class="cita-detalle">Implante dental · Dr. Carlos Reyes</div></div><div class="cita-doc">CC 19.234.567<span>Ficha #0089</span></div><span class="cbadge sched">Programada</span></div>
+    </div>
+
+    <!-- Col stats -->
+    <div class="cols">
+      <div class="table-card">
+        <div class="tc-head"><span class="tc-title">Pacientes recientes</span><button class="tc-btn">Ver todos →</button></div>
+        <table>
+          <thead><tr><th>Paciente</th><th>Tratamiento</th><th>Última visita</th></tr></thead>
+          <tbody>
+            <tr><td class="td-name">María García</td><td class="td-muted">Limpieza</td><td class="td-muted">Hoy</td></tr>
+            <tr><td class="td-name">Carlos Ríos</td><td class="td-muted">Extracción</td><td class="td-muted">Hoy</td></tr>
+            <tr><td class="td-name">Ana Moreno</td><td class="td-muted">Ortodoncia</td><td class="td-muted">Hoy</td></tr>
+            <tr><td class="td-name">Sofía Ramírez</td><td class="td-muted">Blanqueam.</td><td class="td-muted">Hoy</td></tr>
+            <tr><td class="td-name">Pedro Salinas</td><td class="td-muted">Radiografía</td><td class="td-muted">Ayer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="stats-card">
+        <div class="sc-title">Rendimiento del mes</div>
+        <div class="stat-bar-row"><div class="sbr-top"><span class="sbr-lbl">Asistencia</span><span class="sbr-val" style="color:#16a34a">94%</span></div><div class="sbr-track"><div class="sbr-fill" style="width:94%;background:#22c55e"></div></div></div>
+        <div class="stat-bar-row"><div class="sbr-top"><span class="sbr-lbl">Citas completadas</span><span class="sbr-val" style="color:#0284c7">238/253</span></div><div class="sbr-track"><div class="sbr-fill" style="width:94%;background:#06b6d4"></div></div></div>
+        <div class="stat-bar-row"><div class="sbr-top"><span class="sbr-lbl">Satisfacción</span><span class="sbr-val" style="color:#d97706">★ 4.8</span></div><div class="sbr-track"><div class="sbr-fill" style="width:96%;background:#f59e0b"></div></div></div>
+        <div class="stat-bar-row"><div class="sbr-top"><span class="sbr-lbl">Ocupación clínica</span><span class="sbr-val">87%</span></div><div class="sbr-track"><div class="sbr-fill" style="width:87%;background:#8b5cf6"></div></div></div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);display:flex;justify-content:space-between">
+          <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:#0f172a">$18.4M</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Ingresos mes</div></div>
+          <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:#0f172a">253</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Citas mes</div></div>
+          <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:#0f172a">1.204</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Pacientes</div></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Modal nueva cita -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeIfOutside(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">Nueva cita</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="mfield"><label>Paciente</label><input type="text" placeholder="Buscar paciente o crear nuevo..."></div>
+      <div class="mrow">
+        <div class="mfield"><label>Fecha</label><input type="date" id="m-date"></div>
+        <div class="mfield"><label>Hora</label><select><option>8:00 am</option><option>8:30 am</option><option>9:00 am</option><option>9:30 am</option><option>10:00 am</option><option>10:30 am</option><option>11:00 am</option><option>2:00 pm</option><option>2:30 pm</option><option>3:00 pm</option><option>3:30 pm</option><option>4:00 pm</option></select></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>Especialista</label><select><option>Dra. Ana Lozano</option><option>Dr. Carlos Reyes</option><option>Dra. María Valencia</option><option>Dr. Jorge Peña</option></select></div>
+        <div class="mfield"><label>Tratamiento</label><select><option>Limpieza</option><option>Blanqueamiento</option><option>Ortodoncia</option><option>Endodoncia</option><option>Extracción</option><option>Implante</option><option>Urgencia</option></select></div>
+      </div>
+      <div class="mfield"><label>Nota</label><input type="text" placeholder="Observaciones opcionales"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="saveAppt()">Guardar cita</button>
+    </div>
   </div>
-  <div class="foot-bottom">
-    <span>© 2024 Sonrisa CRM. Todos los derechos reservados.</span>
-    <span>Sitio por <strong style="color:var(--cy)">JM Studios</strong></span>
-  </div>
-</footer>
+</div>
 
 <script>
-function scrollSec(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
-
-function goStep(n){
-  for(var i=1;i<=4;i++){
-    var p=document.getElementById('bp'+i);
-    var num=document.getElementById('snum'+i);
-    var lbl=document.getElementById('slbl'+i);
-    var line=document.getElementById('sline'+i);
-    if(p) p.classList.toggle('active',i===n);
-    if(num){
-      num.classList.toggle('active',i===n);
-      num.classList.toggle('done',i<n);
-    }
-    if(lbl) lbl.classList.toggle('active',i===n);
-    if(line) line.classList.toggle('done',i<n);
-  }
+function setActive(el){
+  el.closest('.sidebar').querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
 }
+function openModal(){document.getElementById('modal-overlay').classList.add('open')}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open')}
+function closeIfOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal()}
+function saveAppt(){closeModal();alert('Cita creada y recordatorio enviado al paciente por WhatsApp.')}
 
-function selectOpt(el,group){
-  el.closest('.service-list,.doc-list,.time-grid').querySelectorAll('[class*="-opt"],[class*="time-slot"]').forEach(function(e){
-    e.classList.remove('selected');
-  });
-  el.classList.add('selected');
-}
-
-function confirmBooking(){
-  document.querySelectorAll('.booking-panel').forEach(function(p){p.classList.remove('active')});
-  document.querySelector('.stepper').style.display='none';
-  document.getElementById('booking-success').style.display='block';
-}
-
-var dateInput=document.getElementById('appt-date');
-if(dateInput){
-  var today=new Date().toISOString().split('T')[0];
-  dateInput.min=today;dateInput.value=today;
-}
+// Date
+var now=new Date();
+var days=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var months=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var label=days[now.getDay()]+' '+now.getDate()+' de '+months[now.getMonth()];
+document.getElementById('tb-date').textContent=label;
+document.getElementById('ac-date-lbl').textContent=label;
+var md=document.getElementById('m-date');
+if(md){md.min=now.toISOString().split('T')[0];md.value=md.min}
 </script>
 </body>
 </html>
