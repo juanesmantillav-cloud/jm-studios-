@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Equino — Gestión de Caballeriza</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <template id="__bundler_thumbnail" data-bg-color="#1b1816">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#1b1816"/>
+      <!-- warm white phone -->
+      <rect x="430" y="120" width="340" height="560" rx="48" fill="#faf7f1"/>
+      <!-- horseshoe mark -->
+      <g transform="translate(600 400)">
+        <path d="M -70 -70 A 70 70 0 1 1 70 -70 L 70 70 L 40 70 L 40 -50 A 40 40 0 1 0 -40 -50 L -40 70 L -70 70 Z"
+              fill="none" stroke="#b54a36" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="-55" cy="60" r="6" fill="#b54a36"/>
+        <circle cx="55" cy="60" r="6" fill="#b54a36"/>
+        <circle cx="-65" cy="20" r="5" fill="#b54a36"/>
+        <circle cx="65" cy="20" r="5" fill="#b54a36"/>
+        <circle cx="-60" cy="-20" r="5" fill="#b54a36"/>
+        <circle cx="60" cy="-20" r="5" fill="#b54a36"/>
+      </g>
+      <text x="600" y="600" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#181513" font-style="italic">Equino</text>
+    </svg>
+  </template>
+
+  <div id="root"></div>
+
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- Device frame -->
+  <script type="text/babel" src="ios-frame.jsx"></script>
+
+  <!-- Foundations -->
+  <script type="text/babel" src="src/icons.jsx"></script>
+  <script type="text/babel" src="src/data.jsx"></script>
+  <script type="text/babel" src="src/shared.jsx"></script>
+  <script type="text/babel" src="src/tabbar.jsx"></script>
+
+  <!-- Screens -->
+  <script type="text/babel" src="src/screens/home.jsx"></script>
+  <script type="text/babel" src="src/screens/bodega.jsx"></script>
+  <script type="text/babel" src="src/screens/caballos.jsx"></script>
+  <script type="text/babel" src="src/screens/horse-detail.jsx"></script>
+  <script type="text/babel" src="src/screens/calendar.jsx"></script>
+
+  <!-- App -->
+  <script type="text/babel" src="src/app.jsx"></script>
+</body>
+</html>

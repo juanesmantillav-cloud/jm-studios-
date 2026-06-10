@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>JM Studios — Software, IA y Automatización para empresas</title>
+<meta name="description" content="Construimos páginas web, software a medida, automatizaciones e IA para acelerar el crecimiento de tu empresa."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+
+/* ════════════════════════════════════════════════
+   DESIGN SYSTEM
+════════════════════════════════════════════════ */
+:root{
+  --bg:      #050314;
+  --bg-1:    #09051a;
+  --bg-2:    #0d0824;
+  --p:       #8b5cf6;
+  --p2:      #a78bfa;
+  --p-dim:   rgba(139,92,246,.14);
+  --p-glow:  rgba(139,92,246,.35);
+  --white:   #ffffff;
+  --muted:   #b5b5c3;
+  --muted2:  rgba(255,255,255,.35);
+  --muted3:  rgba(255,255,255,.07);
+  --g-bg:    rgba(255,255,255,.05);
+  --g-bd:    rgba(255,255,255,.08);
+  --g-blur:  20px;
+  --r-s: 8px; --r-m: 14px; --r-l: 20px; --r-xl: 28px; --r-f: 9999px;
+  --ease: cubic-bezier(.16,1,.3,1);
+  --sh: 0 4px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--white);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.container{max-width:1160px;margin:0 auto;padding:0 44px}
+@media(max-width:768px){.container{padding:0 20px}}
+
+/* ════════════════════════════════════════════════
+   GALAXY BACKGROUND  (canvas injected by JS)
+════════════════════════════════════════════════ */
+#galaxy{
+  position:fixed;inset:0;z-index:0;
+  background:radial-gradient(ellipse 120% 80% at 70% 20%, #0d0630 0%, #050314 55%, #020212 100%);
+  overflow:hidden;pointer-events:none;
+}
+/* nebula orbs */
+.orb{position:absolute;border-radius:50%;pointer-events:none;will-change:transform}
+.orb-1{
+  width:700px;height:700px;top:-200px;right:-100px;
+  background:radial-gradient(circle,rgba(109,40,217,.38) 0%,transparent 65%);
+  filter:blur(90px);animation:drift1 24s ease-in-out infinite alternate;
+}
+.orb-2{
+  width:500px;height:500px;bottom:5%;left:-120px;
+  background:radial-gradient(circle,rgba(76,29,149,.32) 0%,transparent 65%);
+  filter:blur(100px);animation:drift2 18s ease-in-out infinite alternate;
+}
+.orb-3{
+  width:360px;height:360px;top:35%;left:42%;
+  background:radial-gradient(circle,rgba(167,139,250,.16) 0%,transparent 65%);
+  filter:blur(80px);animation:drift3 14s ease-in-out infinite alternate;
+}
+@keyframes drift1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-100px,140px) scale(1.2)}}
+@keyframes drift2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(120px,-100px) scale(1.15)}}
+@keyframes drift3{0%{transform:translate(0,0) scale(1)}100%{transform:translate(90px,70px) scale(1.4)}}
+#galaxy canvas{position:absolute;inset:0;z-index:1}
+
+/* ════════════════════════════════════════════════
+   GLASS SYSTEM
+════════════════════════════════════════════════ */
+.glass{
+  background:var(--g-bg);
+  backdrop-filter:blur(var(--g-blur));-webkit-backdrop-filter:blur(var(--g-blur));
+  border:1px solid var(--g-bd);
+}
+.glass-card{
+  background:rgba(9,5,26,.6);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:var(--r-l);box-shadow:var(--sh);
+  transition:border-color .28s var(--ease),transform .28s var(--ease),box-shadow .28s var(--ease);
+}
+.glass-card:hover{
+  border-color:rgba(139,92,246,.38);transform:translateY(-4px);
+  box-shadow:0 14px 52px rgba(0,0,0,.55),0 0 0 1px rgba(139,92,246,.2);
+}
+
+/* ════════════════════════════════════════════════
+   BUTTONS
+════════════════════════════════════════════════ */
+/* Primary: glass with subtle purple border */
+.btn-main{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(139,92,246,.12);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(139,92,246,.5);
+  border-radius:var(--r-f);padding:13px 26px;
+  font-size:15px;font-weight:600;color:var(--white);
+  box-shadow:0 0 28px rgba(139,92,246,.18);
+  transition:background .2s,border-color .2s,box-shadow .2s,transform .2s var(--ease);
+}
+.btn-main:hover{
+  background:rgba(139,92,246,.22);border-color:rgba(167,139,250,.75);
+  box-shadow:0 0 44px rgba(139,92,246,.35);transform:translateY(-2px);
+}
+/* Ghost: plain glass */
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:none;border:none;color:var(--muted);
+  font-size:15px;font-weight:500;padding:13px 6px;cursor:pointer;
+  transition:color .2s;
+}
+.btn-ghost:hover{color:var(--white)}
+/* Small nav CTA */
+.btn-p-sm{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--p);color:white;border-radius:var(--r-f);padding:8px 18px;
+  font-size:13px;font-weight:600;
+  box-shadow:0 0 0 1px rgba(139,92,246,.45),0 2px 14px rgba(139,92,246,.28);
+  transition:transform .2s var(--ease),box-shadow .2s;
+}
+.btn-p-sm:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(167,139,250,.6),0 4px 22px rgba(139,92,246,.48)}
+/* WhatsApp */
+.btn-wa{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#25d366;color:#052212;border-radius:var(--r-f);padding:14px 26px;
+  font-size:15px;font-weight:700;transition:transform .2s var(--ease),box-shadow .2s;
+}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(37,211,102,.38)}
+/* Email */
+.btn-email{
+  display:inline-flex;align-items:center;gap:10px;
+  border-radius:var(--r-f);padding:14px 26px;font-size:15px;font-weight:500;color:var(--white);
+  background:var(--g-bg);border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:border-color .2s,transform .2s var(--ease);
+}
+.btn-email:hover{border-color:rgba(255,255,255,.42);transform:translateY(-2px)}
+
+/* ════════════════════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════════════════════ */
+.label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--p2)}
+.t-h2{font-size:clamp(36px,5vw,56px);font-weight:700;line-height:1.05;letter-spacing:-.03em;color:var(--white)}
+.t-body{font-size:16px;font-weight:400;color:var(--muted);line-height:1.7}
+.grad{
+  background:linear-gradient(135deg,var(--p2) 0%,var(--p) 55%,#6d28d9 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.dim{color:rgba(255,255,255,.28);-webkit-text-fill-color:rgba(255,255,255,.28)}
+.badge{display:inline-flex;align-items:center;gap:10px;border-radius:var(--r-f);padding:6px 8px;margin-bottom:24px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--p);flex-shrink:0;animation:bpulse 2s ease infinite}
+@keyframes bpulse{0%,100%{box-shadow:0 0 0 0 var(--p-glow)}50%{box-shadow:0 0 0 6px transparent}}
+.badge-chip{background:var(--p-dim);color:var(--p2);border-radius:var(--r-f);padding:3px 10px;font-size:11px;font-weight:700;letter-spacing:.05em;border:1px solid rgba(139,92,246,.3)}
+.badge-txt{font-size:13px;color:var(--muted);padding-right:4px}
+
+/* ════════════════════════════════════════════════
+   LOGO — animated bar chart
+════════════════════════════════════════════════ */
+.jm-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-bars{display:flex;align-items:flex-end;gap:3px;height:20px}
+.lbar{display:block;width:4px;border-radius:2px}
+.lb1{height:7px;background:rgba(99,102,241,.5);animation:lpulse 1.6s ease-in-out infinite}
+.lb2{height:13px;background:rgba(99,102,241,.75);animation:lpulse 1.6s ease-in-out infinite .25s}
+.lb3{height:20px;background:#6366f1;animation:lpulse 1.6s ease-in-out infinite .5s}
+@keyframes lpulse{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.55;transform:scaleY(.8)}}
+.logo-text{font-size:15px;font-weight:600;letter-spacing:-.2px;color:rgba(255,255,255,.9)}
+
+/* ════════════════════════════════════════════════
+   NAV
+════════════════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:18px 44px;display:flex;align-items:center;justify-content:space-between;
+  transition:background .3s,padding .3s,border-color .3s;
+}
+#nav.scrolled{
+  background:rgba(5,3,20,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);padding-top:13px;padding-bottom:13px;
+}
+.nav-center{display:flex;align-items:center;gap:2px;border-radius:var(--r-f);padding:6px}
+.nav-center a{padding:7px 15px;font-size:14px;font-weight:500;color:var(--muted);border-radius:var(--r-f);transition:color .15s,background .15s}
+.nav-center a:hover{color:var(--white);background:rgba(255,255,255,.06)}
+@media(max-width:880px){#nav{padding:14px 20px}.nav-center{display:none}}
+
+/* ════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════ */
+#hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+.hero-body{
+  position:relative;z-index:10;flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:120px 40px 60px;max-width:900px;margin:0 auto;width:100%;
+}
+/* word-blur headline */
+.hw{display:flex;flex-wrap:wrap;justify-content:center;column-gap:.22em;row-gap:.06em}
+.hw .w{
+  display:inline-block;
+  font-size:clamp(52px,7.5vw,84px);font-weight:800;line-height:1.0;letter-spacing:-.04em;
+  opacity:0;transform:translateY(28px);filter:blur(10px);
+  transition:opacity .65s var(--ease),transform .65s var(--ease),filter .65s var(--ease);
+}
+.hw .w.in{opacity:1;transform:none;filter:blur(0)}
+#h-sub{
+  margin-top:20px;max-width:500px;font-size:17px;color:var(--muted);font-weight:400;line-height:1.65;
+  opacity:0;transform:translateY(14px);filter:blur(6px);
+  transition:all .7s var(--ease);transition-delay:.85s;
+}
+#h-sub.in{opacity:1;transform:none;filter:blur(0)}
+#h-ctas{
+  display:flex;align-items:center;gap:16px;margin-top:32px;flex-wrap:wrap;justify-content:center;
+  opacity:0;transform:translateY(14px);
+  transition:all .65s var(--ease);transition-delay:1.05s;
+}
+#h-ctas.in{opacity:1;transform:none}
+.hero-foot{
+  position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding-bottom:32px;opacity:0;transform:translateY(8px);
+  transition:all .65s var(--ease);transition-delay:1.35s;
+}
+.hero-foot.in{opacity:1;transform:none}
+.hero-foot span{font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.12em;text-transform:uppercase}
+.scroll-bar{width:1px;height:44px;background:linear-gradient(to bottom,transparent,rgba(139,92,246,.7),transparent);animation:spulse 2s ease infinite}
+@keyframes spulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ════════════════════════════════════════════════
+   MARQUEE
+════════════════════════════════════════════════ */
+.strip{
+  position:relative;z-index:5;overflow:hidden;padding:18px 0;
+  border-top:1px solid var(--muted3);border-bottom:1px solid var(--muted3);
+  background:rgba(5,3,20,.75);backdrop-filter:blur(10px);
+}
+.mtrack{display:flex;gap:64px;white-space:nowrap;animation:marquee 32s linear infinite}
+.mtrack span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22);display:inline-flex;align-items:center;gap:64px}
+.mtrack span::after{content:'✦';color:rgba(139,92,246,.55)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ════════════════════════════════════════════════
+   SERVICES
+════════════════════════════════════════════════ */
+#servicios{position:relative;z-index:1;padding:110px 0 90px}
+.svc-header{max-width:660px;margin-bottom:60px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.svc-grid{grid-template-columns:1fr}}
+.svc-card{
+  border-radius:var(--r-l);padding:28px;min-height:340px;display:flex;flex-direction:column;
+  background:rgba(9,5,26,.6);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border:1px solid rgba(255,255,255,.075);
+  box-shadow:var(--sh);
+  transition:border-color .28s var(--ease),transform .28s var(--ease),box-shadow .28s;
+}
+.svc-card:hover{
+  border-color:rgba(139,92,246,.38);transform:translateY(-4px);
+  box-shadow:0 14px 52px rgba(0,0,0,.55),0 0 0 1px rgba(139,92,246,.2);
+}
+.svc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.svc-ic{
+  width:44px;height:44px;border-radius:var(--r-s);
+  background:var(--p-dim);border:1px solid rgba(139,92,246,.28);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.svc-tags{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:5px;max-width:62%}
+.svc-tag{
+  border-radius:var(--r-f);padding:3px 10px;font-size:11px;font-weight:500;color:var(--muted);
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);white-space:nowrap;
+}
+.svc-body{margin-top:auto;padding-top:28px}
+.svc-title{font-size:28px;font-weight:700;letter-spacing:-.03em;color:var(--white);margin-bottom:10px}
+.svc-desc{font-size:14px;color:var(--muted);line-height:1.7;max-width:30ch}
+
+/* ════════════════════════════════════════════════
+   SECTION DIVIDER
+════════════════════════════════════════════════ */
+.sdiv{position:relative;z-index:1;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.3),transparent);margin:0 44px}
+
+/* ════════════════════════════════════════════════
+   PROJECTS
+════════════════════════════════════════════════ */
+#proyectos{position:relative;z-index:1;padding:110px 0}
+.proj-hdr{max-width:640px;margin-bottom:60px}
+.proj-hdr .t-body{margin-top:16px}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(max-width:860px){.proj-grid{grid-template-columns:1fr}}
+.proj-card{
+  border-radius:var(--r-l);overflow:hidden;
+  background:rgba(9,5,26,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.075);box-shadow:var(--sh);
+  display:flex;flex-direction:column;
+  transition:transform .28s var(--ease),border-color .28s,box-shadow .28s;
+}
+.proj-card:hover{transform:translateY(-5px);box-shadow:0 16px 56px rgba(0,0,0,.6)}
+.browser-bar{
+  background:rgba(0,0,0,.65);height:28px;display:flex;align-items:center;gap:5px;padding:0 10px;
+  flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.05);
+}
+.dot{width:8px;height:8px;border-radius:50%}
+.browser-url{flex:1;background:rgba(255,255,255,.05);border-radius:4px;height:13px;margin:0 8px}
+.browser-domain{font-size:9px;color:rgba(255,255,255,.18);font-family:monospace}
+.browser-screen{height:256px;overflow:hidden;position:relative;flex-shrink:0}
+.proj-tag{
+  position:absolute;top:10px;left:10px;z-index:5;
+  border-radius:var(--r-f);padding:4px 12px;font-size:10px;font-weight:600;letter-spacing:.05em;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.proj-body{padding:22px 24px 26px;flex:1;display:flex;flex-direction:column}
+.proj-sector{font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.proj-name{font-size:24px;font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
+.proj-desc{font-size:13.5px;color:var(--muted);line-height:1.65;flex:1}
+.proj-metrics{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
+.metric-n{font-size:20px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.metric-l{font-size:9px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+.metric-sep{width:1px;height:26px;background:rgba(255,255,255,.07)}
+.proj-note{text-align:center;font-size:11px;color:rgba(255,255,255,.14);margin-top:40px;letter-spacing:.06em}
+
+/* ════════════════════════════════════════════════
+   PROCESS
+════════════════════════════════════════════════ */
+#proceso{position:relative;z-index:1;padding:110px 0}
+.proc-hdr{max-width:580px;margin-bottom:60px}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:860px){.proc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.proc-grid{grid-template-columns:1fr}}
+.proc-step{
+  padding:28px;border-radius:var(--r-l);
+  border:1px solid rgba(255,255,255,.075);
+  background:rgba(9,5,26,.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  transition:border-color .2s,box-shadow .2s;
+}
+.proc-step:hover{border-color:rgba(139,92,246,.32);box-shadow:0 4px 28px rgba(0,0,0,.42)}
+.proc-step.hl{
+  background:linear-gradient(145deg,rgba(109,40,217,.92),rgba(139,92,246,.82));
+  border-color:rgba(167,139,250,.42);box-shadow:0 8px 42px rgba(139,92,246,.32);
+}
+.proc-num{
+  width:40px;height:40px;border-radius:var(--r-f);border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;color:var(--p2);margin-bottom:20px;
+}
+.proc-step.hl .proc-num{color:white;border-color:rgba(255,255,255,.42)}
+.proc-title{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.proc-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.65}
+.proc-step.hl .proc-desc{color:rgba(255,255,255,.88)}
+
+/* ════════════════════════════════════════════════
+   CTA
+════════════════════════════════════════════════ */
+#contacto{position:relative;z-index:1;padding:80px 0 110px}
+.cta-box{
+  position:relative;overflow:hidden;border-radius:var(--r-xl);padding:72px 64px;
+  background:radial-gradient(140% 150% at 88% 0%,rgba(109,40,217,.62),rgba(9,5,26,.97) 56%);
+  border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  box-shadow:0 0 80px rgba(139,92,246,.16),0 8px 48px rgba(0,0,0,.5);
+}
+.cta-grid-bg{
+  position:absolute;inset:0;pointer-events:none;opacity:.04;
+  background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+  background-size:52px 52px;
+  -webkit-mask-image:radial-gradient(80% 90% at 90% 5%,#000 0%,transparent 70%);
+  mask-image:radial-gradient(80% 90% at 90% 5%,#000 0%,transparent 70%);
+}
+.cta-glow-orb{
+  position:absolute;top:-160px;right:-160px;width:450px;height:450px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,246,.42) 0%,transparent 70%);
+  filter:blur(60px);pointer-events:none;
+}
+.cta-in{position:relative;z-index:2}
+.cta-h{font-size:clamp(32px,4.5vw,52px);font-weight:700;letter-spacing:-.04em;line-height:1.05;max-width:620px;margin:12px 0 16px}
+.cta-lead{font-size:17px;color:var(--muted);line-height:1.65;max-width:480px;margin-bottom:38px}
+.cta-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+.cta-contacts{display:flex;gap:28px;flex-wrap:wrap}
+.cc{display:flex;align-items:center;gap:14px}
+.cc-ic{
+  width:46px;height:46px;border-radius:var(--r-m);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.cc-lbl{font-size:10px;color:rgba(255,255,255,.38);letter-spacing:.12em;text-transform:uppercase}
+.cc-val{font-size:15px;font-weight:600;margin-top:3px}
+@media(max-width:768px){.cta-box{padding:44px 28px}.cta-btns{flex-direction:column}}
+
+/* ════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════ */
+footer{
+  position:relative;z-index:1;border-top:1px solid var(--muted3);padding:56px 0 32px;
+  background:rgba(5,3,20,.92);backdrop-filter:blur(12px);
+}
+.foot-top{display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap;margin-bottom:48px}
+.foot-brand p{font-size:14px;color:rgba(255,255,255,.33);line-height:1.7;margin-top:14px;max-width:280px}
+.foot-nav{display:flex;gap:60px;flex-wrap:wrap}
+.foot-col h4{font-size:11px;color:rgba(255,255,255,.24);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:16px}
+.foot-col a{display:block;font-size:14px;color:rgba(255,255,255,.38);padding:5px 0;transition:color .15s}
+.foot-col a:hover{color:var(--white)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:24px;border-top:1px solid var(--muted3)}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.18)}
+@media(max-width:768px){footer{padding:48px 0 28px}.foot-bottom{flex-direction:column;align-items:flex-start}}
+
+/* ════════════════════════════════════════════════
+   FAB
+════════════════════════════════════════════════ */
+.fab{
+  position:fixed;right:22px;bottom:22px;z-index:999;
+  width:54px;height:54px;border-radius:50%;background:#25d366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(37,211,102,.48);
+  transition:transform .2s var(--ease),box-shadow .2s;
+}
+.fab:hover{transform:scale(1.1);box-shadow:0 12px 36px rgba(37,211,102,.62)}
+
+/* ════════════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* mocks base */
+.mc,.ma,.mv{width:100%;user-select:none}
+.mc{background:#0f0a06;font-family:Georgia,serif;font-size:10px;color:#f0ede8}
+.ma{background:#0b0f1a;font-family:'Inter',system-ui,sans-serif;font-size:10px;color:#e2e8f0}
+.mv{background:#09090b;font-family:'Inter',system-ui,sans-serif;font-size:10px;color:#fafafa}
+
+</style>
+</head>
+<body>
+
+<!-- ══ GALAXY ══════════════════════════════════════════ -->
+<div id="galaxy" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <!-- canvas injected by JS -->
+</div>
+
+<!-- ══ NAV ════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" class="jm-logo">
+    <div class="logo-bars">
+      <span class="lbar lb1"></span>
+      <span class="lbar lb2"></span>
+      <span class="lbar lb3"></span>
+    </div>
+    <span class="logo-text">jm_studios</span>
+  </a>
+
+  <div class="nav-center glass">
+    <a href="#servicios">Servicios</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#contacto" class="btn-p-sm" style="margin-left:6px">
+      Tu Proyecto
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+    </a>
+  </div>
+
+  <!-- right spacer to keep nav-center centered -->
+  <div aria-hidden="true" style="width:180px"></div>
+</nav>
+
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-body">
+    <div class="badge glass">
+      <span class="badge-dot"></span>
+      <span class="badge-chip">Estudio Digital</span>
+      <span class="badge-txt">Software · IA · Automatización · Bogotá</span>
+    </div>
+
+    <div class="hw" id="hw" aria-label="Software IA y automatización para impulsar tu empresa."></div>
+
+    <p class="t-body" id="h-sub" style="text-align:center;max-width:490px;margin-top:22px;font-size:17px">
+      Construimos las herramientas digitales que tu negocio necesita para crecer más rápido y operar mejor.
+    </p>
+
+    <div id="h-ctas">
+      <a href="#contacto" class="btn-main">
+        Cuéntanos tu idea
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+      <a href="#proyectos" class="btn-ghost">
+        Ver proyectos
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-foot" id="h-foot">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ══ STRIP ══════════════════════════════════════════ -->
+<div class="strip" aria-hidden="true">
+  <div class="mtrack">
+    <span>Páginas web</span><span>Software a medida</span><span>Automatización</span>
+    <span>Inteligencia artificial</span><span>CRM propio</span><span>Integraciones</span>
+    <span>E-commerce</span><span>Chatbots IA</span>
+    <span>Páginas web</span><span>Software a medida</span><span>Automatización</span>
+    <span>Inteligencia artificial</span><span>CRM propio</span><span>Integraciones</span>
+    <span>E-commerce</span><span>Chatbots IA</span>
+  </div>
+</div>
+
+<!-- ══ SERVICIOS ══════════════════════════════════════ -->
+<section id="servicios">
+  <div class="container">
+    <div class="svc-header reveal">
+      <p class="label">// Servicios</p>
+      <h2 class="t-h2" style="margin-top:12px">Soluciones digitales que<br/><span class="grad">generan resultados.</span></h2>
+      <p class="t-body" style="margin-top:16px;max-width:460px">Cada herramienta que construimos está pensada para que tu negocio funcione mejor, venda más y gaste menos tiempo en tareas manuales.</p>
+    </div>
+    <div class="svc-grid">
+
+      <div class="svc-card reveal" style="transition-delay:.08s">
+        <div class="svc-top">
+          <div class="svc-ic">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="rgba(167,139,250,1)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <div class="svc-tags">
+            <span class="svc-tag">Landing Pages</span>
+            <span class="svc-tag">E-commerce</span>
+            <span class="svc-tag">SEO</span>
+            <span class="svc-tag">Ultra rápido</span>
+          </div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-title">Desarrollo Web</div>
+          <p class="svc-desc">Sitios y plataformas profesionales, veloces y listos para convertir visitantes en clientes. Responsive, SEO y tiendas online.</p>
+        </div>
+      </div>
+
+      <div class="svc-card reveal" style="transition-delay:.16s">
+        <div class="svc-top">
+          <div class="svc-ic">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="rgba(167,139,250,1)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v3M12 18v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M3 12h3M18 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+            </svg>
+          </div>
+          <div class="svc-tags">
+            <span class="svc-tag">Flujos auto</span>
+            <span class="svc-tag">Integraciones</span>
+            <span class="svc-tag">Sin errores</span>
+            <span class="svc-tag">Ahorra 15h/sem</span>
+          </div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-title">Automatización</div>
+          <p class="svc-desc">Eliminamos tareas repetitivas: flujos, correos automáticos e integraciones para que tu equipo se enfoque en lo que genera valor.</p>
+        </div>
+      </div>
+
+      <div class="svc-card reveal" style="transition-delay:.24s">
+        <div class="svc-top">
+          <div class="svc-ic">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="rgba(167,139,250,1)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <div class="svc-tags">
+            <span class="svc-tag">CRM propio</span>
+            <span class="svc-tag">Chatbots IA</span>
+            <span class="svc-tag">100% privado</span>
+            <span class="svc-tag">Tiempo real</span>
+          </div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-title">Software + IA</div>
+          <p class="svc-desc">CRM, dashboards y asistentes IA. Sistemas privados 100% tuyos y chatbots que atienden a tus clientes las 24 horas.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ══ PROYECTOS ══════════════════════════════════════ -->
+<section id="proyectos">
+  <div class="container">
+    <div class="proj-hdr reveal">
+      <p class="label">Proyectos</p>
+      <h2 class="t-h2" style="margin-top:12px">Lo que podemos<br/><span class="dim">construir para ti.</span></h2>
+      <p class="t-body" style="margin-top:16px">Un caso real por servicio — para que veas el rango de soluciones que JM Studios construye.</p>
+    </div>
+    <div class="proj-grid">
+
+      <!-- La Cosecha -->
+      <article class="proj-card reveal" style="transition-delay:.05s">
+        <div class="browser-bar">
+          <div class="dot" style="background:#ff5f57"></div>
+          <div class="dot" style="background:#febc2e"></div>
+          <div class="dot" style="background:#28c840"></div>
+          <div class="browser-url"></div>
+          <span class="browser-domain">lacosecha.com.co</span>
+        </div>
+        <div class="browser-screen" style="background:#0f0a06">
+          <span class="proj-tag" style="background:rgba(0,0,0,.8);border:1px solid rgba(212,169,85,.4);color:#d4a955">Desarrollo Web</span>
+          <div class="mc">
+            <div style="background:#1a1108;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,169,85,.12)">
+              <span style="font-style:italic;font-size:11px;color:#d4a955;letter-spacing:1px">La Cosecha</span>
+              <div style="display:flex;gap:10px;font-size:8px;color:rgba(240,237,232,.5)"><span>Menú</span><span>Reservas</span><span>Nosotros</span></div>
+              <div style="background:#d4a955;color:#0f0a06;border-radius:4px;padding:3px 7px;font-size:8px;font-weight:700">Reservar</div>
+            </div>
+            <div style="height:82px;background:linear-gradient(135deg,#2a1a06,#1a2a0a);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(212,169,85,.04) 0,rgba(212,169,85,.04) 1px,transparent 1px,transparent 18px)"></div>
+              <p style="font-size:8px;color:#d4a955;letter-spacing:3px;margin-bottom:3px;position:relative">RESTAURANTE · BOGOTÁ</p>
+              <h2 style="font-size:14px;font-style:italic;color:white;letter-spacing:-.5px;margin:0;position:relative">Sabores de la tierra colombiana</h2>
+              <div style="display:flex;gap:7px;margin-top:7px;position:relative">
+                <div style="background:#d4a955;color:#0f0a06;border-radius:3px;padding:3px 9px;font-size:7px;font-weight:700">Ver menú digital</div>
+                <div style="border:1px solid rgba(212,169,85,.5);color:#d4a955;border-radius:3px;padding:3px 9px;font-size:7px">Reservar mesa</div>
+              </div>
+            </div>
+            <div style="padding:8px 12px">
+              <p style="font-size:7px;letter-spacing:2px;color:#d4a955;margin-bottom:7px">MENÚ DEL DÍA</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+                <div style="background:rgba(255,255,255,.04);border-radius:4px;padding:5px 7px;display:flex;justify-content:space-between"><span style="font-size:8px">Bandeja paisa</span><span style="font-size:8px;color:#d4a955">$38k</span></div>
+                <div style="background:rgba(255,255,255,.04);border-radius:4px;padding:5px 7px;display:flex;justify-content:space-between"><span style="font-size:8px">Ajiaco bogotano</span><span style="font-size:8px;color:#d4a955">$32k</span></div>
+                <div style="background:rgba(255,255,255,.04);border-radius:4px;padding:5px 7px;display:flex;justify-content:space-between"><span style="font-size:8px">Trucha amazónica</span><span style="font-size:8px;color:#d4a955">$45k</span></div>
+                <div style="background:rgba(255,255,255,.04);border-radius:4px;padding:5px 7px;display:flex;justify-content:space-between"><span style="font-size:8px">Ceviche camarón</span><span style="font-size:8px;color:#d4a955">$36k</span></div>
+              </div>
+            </div>
+            <div style="padding:5px 12px 10px;display:flex;gap:10px">
+              <div style="flex:1;text-align:center"><div style="font-size:13px;font-style:italic;color:#d4a955">1.8s</div><div style="font-size:6px;color:rgba(240,237,232,.4);margin-top:2px">Carga</div></div>
+              <div style="flex:1;text-align:center"><div style="font-size:13px;font-style:italic;color:#d4a955">★ 4.9</div><div style="font-size:6px;color:rgba(240,237,232,.4);margin-top:2px">Google</div></div>
+              <div style="flex:1;text-align:center"><div style="font-size:13px;font-style:italic;color:#d4a955">+180%</div><div style="font-size:6px;color:rgba(240,237,232,.4);margin-top:2px">Reservas</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <p class="proj-sector">Restaurante · Gastronomía</p>
+          <h3 class="proj-name" style="color:#d4a955">La Cosecha</h3>
+          <p class="proj-desc">Sitio con menú digital interactivo, reservas en tiempo real y galería visual. Carga ultra-rápida y SEO posicionado en Google.</p>
+          <div class="proj-metrics">
+            <div><div class="metric-n" style="color:#d4a955">+180%</div><div class="metric-l">Reservas online</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#d4a955">1.8s</div><div class="metric-l">Tiempo de carga</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#d4a955">★4.9</div><div class="metric-l">Google</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Andina Express -->
+      <article class="proj-card reveal" style="transition-delay:.1s">
+        <div class="browser-bar">
+          <div class="dot" style="background:#ff5f57"></div>
+          <div class="dot" style="background:#febc2e"></div>
+          <div class="dot" style="background:#28c840"></div>
+          <div class="browser-url"></div>
+          <span class="browser-domain">andina-express.co</span>
+        </div>
+        <div class="browser-screen" style="background:#0b0f1a">
+          <span class="proj-tag" style="background:rgba(0,0,0,.8);border:1px solid rgba(99,102,241,.4);color:#818cf8">Automatización</span>
+          <div class="ma">
+            <div style="background:#111827;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(99,102,241,.2)">
+              <div style="display:flex;align-items:center;gap:5px">
+                <div style="width:18px;height:18px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:700">A</div>
+                <span style="font-size:10px;font-weight:600;color:white">Andina Express</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e"></div><span style="font-size:8px;color:#22c55e">Activo</span></div>
+            </div>
+            <div style="padding:8px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px">
+              <div style="background:rgba(255,255,255,.04);border-radius:5px;padding:5px 7px"><div style="font-size:13px;font-weight:700;color:#6366f1">847</div><div style="font-size:7px;color:rgba(226,232,240,.4);margin-top:2px">Pedidos</div></div>
+              <div style="background:rgba(255,255,255,.04);border-radius:5px;padding:5px 7px"><div style="font-size:13px;font-weight:700;color:#22c55e">$24M</div><div style="font-size:7px;color:rgba(226,232,240,.4);margin-top:2px">Facturado</div></div>
+              <div style="background:rgba(255,255,255,.04);border-radius:5px;padding:5px 7px"><div style="font-size:13px;font-weight:700;color:#f59e0b">0</div><div style="font-size:7px;color:rgba(226,232,240,.4);margin-top:2px">Errores</div></div>
+              <div style="background:rgba(255,255,255,.04);border-radius:5px;padding:5px 7px"><div style="font-size:13px;font-weight:700;color:#8b5cf6">15h</div><div style="font-size:7px;color:rgba(226,232,240,.4);margin-top:2px">Ahorradas</div></div>
+            </div>
+            <div style="padding:0 10px 7px">
+              <p style="font-size:7px;color:rgba(226,232,240,.4);margin-bottom:5px;letter-spacing:1px">FLUJO AUTOMÁTICO</p>
+              <div style="display:flex;align-items:center;gap:3px">
+                <div style="flex:1;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);border-radius:4px;padding:4px 3px;text-align:center"><div style="font-size:9px">📦</div><div style="font-size:6px;color:rgba(226,232,240,.55);margin-top:1px">Pedido</div></div>
+                <div style="color:rgba(99,102,241,.6);font-size:10px">→</div>
+                <div style="flex:1;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);border-radius:4px;padding:4px 3px;text-align:center"><div style="font-size:9px">⚙️</div><div style="font-size:6px;color:rgba(226,232,240,.55);margin-top:1px">Sistema</div></div>
+                <div style="color:rgba(99,102,241,.6);font-size:10px">→</div>
+                <div style="flex:1;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);border-radius:4px;padding:4px 3px;text-align:center"><div style="font-size:9px">📄</div><div style="font-size:6px;color:rgba(226,232,240,.55);margin-top:1px">Factura</div></div>
+                <div style="color:rgba(99,102,241,.6);font-size:10px">→</div>
+                <div style="flex:1;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);border-radius:4px;padding:4px 3px;text-align:center"><div style="font-size:9px">📧</div><div style="font-size:6px;color:#22c55e;margin-top:1px">Correo</div></div>
+              </div>
+            </div>
+            <div style="padding:0 10px 8px">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:8px"><span style="color:rgba(99,102,241,.8)">#8821</span><span style="flex:1;margin-left:7px">Ferretería Andina</span><span style="color:#22c55e">✓ Facturado</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:8px"><span style="color:rgba(99,102,241,.8)">#8822</span><span style="flex:1;margin-left:7px">Dist. Norte</span><span style="color:#22c55e">✓ Enviado</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;font-size:8px"><span style="color:rgba(99,102,241,.8)">#8823</span><span style="flex:1;margin-left:7px">Super Express</span><span style="color:#f59e0b">⟳ Procesando</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <p class="proj-sector">Distribuidora · Logística</p>
+          <h3 class="proj-name" style="color:#818cf8">Andina Express</h3>
+          <p class="proj-desc">Facturación automática y seguimientos por correo. Los pedidos pasan de la web al sistema contable sin ninguna digitación manual.</p>
+          <div class="proj-metrics">
+            <div><div class="metric-n" style="color:#818cf8">15h</div><div class="metric-l">Ahorro/semana</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#818cf8">0</div><div class="metric-l">Errores captura</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#818cf8">847</div><div class="metric-l">Pedidos/día</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Sonrisa CRM -->
+      <article class="proj-card reveal" style="transition-delay:.15s">
+        <div class="browser-bar">
+          <div class="dot" style="background:#ff5f57"></div>
+          <div class="dot" style="background:#febc2e"></div>
+          <div class="dot" style="background:#28c840"></div>
+          <div class="browser-url"></div>
+          <span class="browser-domain">sonrisa-crm.co</span>
+        </div>
+        <div class="browser-screen">
+          <span class="proj-tag" style="background:rgba(0,0,0,.8);border:1px solid rgba(6,182,212,.4);color:#22d3ee">Software a medida</span>
+          <div style="display:flex;height:256px">
+            <div style="width:90px;background:#0f172a;padding:8px 6px;display:flex;flex-direction:column;gap:2px;flex-shrink:0">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:10px">
+                <div style="width:18px;height:18px;background:linear-gradient(135deg,#06b6d4,#0891b2);border-radius:4px"></div>
+                <span style="font-size:8px;font-weight:700;color:white">Sonrisa</span>
+              </div>
+              <div style="padding:4px 5px;font-size:7px;color:rgba(255,255,255,.4)">🏠 Dashboard</div>
+              <div style="padding:4px 5px;font-size:7px;color:rgba(255,255,255,.4)">👥 Pacientes</div>
+              <div style="padding:4px 5px;border-radius:3px;background:rgba(6,182,212,.15);font-size:7px;color:#06b6d4">📅 Citas</div>
+              <div style="padding:4px 5px;font-size:7px;color:rgba(255,255,255,.4)">🦷 Historial</div>
+              <div style="padding:4px 5px;font-size:7px;color:rgba(255,255,255,.4)">📊 Reportes</div>
+            </div>
+            <div style="flex:1;padding:8px;background:#f1f5f9;overflow:hidden">
+              <p style="font-size:8px;font-weight:600;color:#0f172a;margin-bottom:7px">Agenda — Martes 10 Jun</p>
+              <div style="display:flex;gap:5px;margin-bottom:7px">
+                <div style="flex:1;background:white;border-radius:5px;padding:5px 6px"><div style="font-size:13px;font-weight:700;color:#06b6d4">12</div><div style="font-size:6px;color:#64748b">Citas hoy</div></div>
+                <div style="flex:1;background:white;border-radius:5px;padding:5px 6px"><div style="font-size:13px;font-weight:700;color:#ef4444">3</div><div style="font-size:6px;color:#64748b">Urgencias</div></div>
+                <div style="flex:1;background:white;border-radius:5px;padding:5px 6px"><div style="font-size:13px;font-weight:700;color:#22c55e">94%</div><div style="font-size:6px;color:#64748b">Asistencia</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px;padding:4px 5px;background:white;border-radius:3px;margin-bottom:2px"><span style="font-size:7px;color:#06b6d4;font-weight:600;width:24px">8:00</span><div style="flex:1"><div style="font-size:7px;font-weight:600;color:#0f172a">María García</div><div style="font-size:6px;color:#94a3b8">Limpieza</div></div><span style="color:#22c55e;font-size:9px">✓</span></div>
+              <div style="display:flex;align-items:center;gap:5px;padding:4px 5px;background:white;border-radius:3px;margin-bottom:2px"><span style="font-size:7px;color:#06b6d4;font-weight:600;width:24px">9:30</span><div style="flex:1"><div style="font-size:7px;font-weight:600;color:#0f172a">Carlos Ríos</div><div style="font-size:6px;color:#94a3b8">Extracción</div></div><span style="color:#22c55e;font-size:9px">✓</span></div>
+              <div style="display:flex;align-items:center;gap:5px;padding:4px 5px;background:white;border-radius:3px"><span style="font-size:7px;color:#06b6d4;font-weight:600;width:24px">11:00</span><div style="flex:1"><div style="font-size:7px;font-weight:600;color:#0f172a">Ana Moreno</div><div style="font-size:6px;color:#94a3b8">Ortodoncia</div></div><span style="color:#f59e0b;font-size:9px">⟳</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <p class="proj-sector">Clínica dental · Salud</p>
+          <h3 class="proj-name" style="color:#22d3ee">Sonrisa CRM</h3>
+          <p class="proj-desc">Sistema privado de citas, historias clínicas e inventario. Control total centralizado con reportes en tiempo real y cero papel.</p>
+          <div class="proj-metrics">
+            <div><div class="metric-n" style="color:#22d3ee">3→1</div><div class="metric-l">Sistemas</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#22d3ee">100%</div><div class="metric-l">Privado</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#22d3ee">94%</div><div class="metric-l">Asistencia</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Vértice IA -->
+      <article class="proj-card reveal" style="transition-delay:.2s">
+        <div class="browser-bar">
+          <div class="dot" style="background:#ff5f57"></div>
+          <div class="dot" style="background:#febc2e"></div>
+          <div class="dot" style="background:#28c840"></div>
+          <div class="browser-url"></div>
+          <span class="browser-domain">vertice-ia.co</span>
+        </div>
+        <div class="browser-screen" style="background:#09090b">
+          <span class="proj-tag" style="background:rgba(0,0,0,.8);border:1px solid rgba(139,92,246,.4);color:#a78bfa">Inteligencia Artificial</span>
+          <div class="mv">
+            <div style="background:#18181b;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(139,92,246,.2)">
+              <div style="display:flex;align-items:center;gap:5px">
+                <div style="width:18px;height:18px;background:linear-gradient(135deg,#8b5cf6,#a855f7);border-radius:4px"></div>
+                <span style="font-size:10px;font-weight:600">Vértice IA</span>
+              </div>
+              <span style="font-size:8px;color:rgba(168,85,247,.9);background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);border-radius:999px;padding:2px 8px">IA activa 24/7</span>
+            </div>
+            <div style="padding:7px 10px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:7px">
+                <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden"><div style="height:28px;background:linear-gradient(135deg,rgba(139,92,246,.3),rgba(59,130,246,.2))"></div><div style="padding:4px 5px"><div style="font-size:8px;font-weight:600">Apto Chapinero</div><div style="font-size:6px;color:rgba(250,250,250,.4)">72m² · 2hab</div><div style="display:flex;justify-content:space-between;margin-top:3px"><span style="font-size:8px;color:#a855f7;font-weight:700">$380M</span><span style="font-size:7px;color:#22c55e">Disponible</span></div></div></div>
+                <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden"><div style="height:28px;background:linear-gradient(135deg,rgba(99,102,241,.3),rgba(139,92,246,.2))"></div><div style="padding:4px 5px"><div style="font-size:8px;font-weight:600">Casa Usaquén</div><div style="font-size:6px;color:rgba(250,250,250,.4)">180m² · 4hab</div><div style="display:flex;justify-content:space-between;margin-top:3px"><span style="font-size:8px;color:#a855f7;font-weight:700">$850M</span><span style="font-size:7px;color:#f59e0b">3 visitas</span></div></div></div>
+              </div>
+            </div>
+            <div style="margin:0 10px 8px;background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);border-radius:8px;padding:7px">
+              <p style="font-size:7px;color:rgba(168,85,247,.8);letter-spacing:1px;margin-bottom:6px">✦ ASISTENTE IA</p>
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <div style="align-self:flex-start;background:linear-gradient(135deg,#7c3aed,#6d28d9);border-radius:8px 8px 8px 2px;padding:5px 8px;max-width:80%;font-size:8px;line-height:1.4">¿Buscas apartamento en Bogotá?</div>
+                <div style="align-self:flex-end;background:rgba(255,255,255,.08);border-radius:8px 8px 2px 8px;padding:5px 8px;max-width:75%;font-size:8px;line-height:1.4">Sí, 2 hab, norte, hasta $400M</div>
+                <div style="align-self:flex-start;background:linear-gradient(135deg,#7c3aed,#6d28d9);border-radius:8px 8px 8px 2px;padding:5px 8px;max-width:90%;font-size:8px;line-height:1.4">Apto Chapinero encaja. ¿Agendo visita el sábado a las 11am?</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <p class="proj-sector">Inmobiliaria · Bienes raíces</p>
+          <h3 class="proj-name" style="color:#a78bfa">Vértice IA</h3>
+          <p class="proj-desc">Asistente IA que responde consultas, filtra propiedades y agenda visitas las 24 horas. Sin perder un solo cliente potencial.</p>
+          <div class="proj-metrics">
+            <div><div class="metric-n" style="color:#a78bfa">24/7</div><div class="metric-l">Respuesta auto</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#a78bfa">+40%</div><div class="metric-l">Visitas</div></div>
+            <div class="metric-sep"></div>
+            <div><div class="metric-n" style="color:#a78bfa">3×</div><div class="metric-l">Leads</div></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <p class="proj-note">✦ Proyectos ilustrativos — tipos de soluciones que construimos en JM Studios</p>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ══ PROCESO ════════════════════════════════════════ -->
+<section id="proceso">
+  <div class="container">
+    <div class="proc-hdr reveal">
+      <p class="label">Proceso</p>
+      <h2 class="t-h2" style="margin-top:12px">De la idea <span class="dim">a la solución.</span></h2>
+      <p class="t-body" style="margin-top:16px;max-width:480px">Un camino claro y sin sorpresas para llevar tu proyecto de cero a producción.</p>
+    </div>
+    <div class="proc-grid">
+      <div class="proc-step reveal" style="transition-delay:.08s">
+        <div class="proc-num">01</div>
+        <div class="proc-title">Conversamos</div>
+        <p class="proc-desc">Entendemos tu negocio, tu operación y lo que quieres lograr.</p>
+      </div>
+      <div class="proc-step reveal" style="transition-delay:.16s">
+        <div class="proc-num">02</div>
+        <div class="proc-title">Diseñamos</div>
+        <p class="proc-desc">Trazamos la solución ideal: alcance, plazos y entregables concretos.</p>
+      </div>
+      <div class="proc-step reveal" style="transition-delay:.24s">
+        <div class="proc-num">03</div>
+        <div class="proc-title">Desarrollamos</div>
+        <p class="proc-desc">Construimos con calidad y comunicación constante durante el proceso.</p>
+      </div>
+      <div class="proc-step hl reveal" style="transition-delay:.32s">
+        <div class="proc-num">04</div>
+        <div class="proc-title">Lanzamos</div>
+        <p class="proc-desc">Ponemos todo a funcionar en tu negocio y te acompañamos en el arranque.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ══ CONTACTO ═══════════════════════════════════════ -->
+<section id="contacto">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="cta-grid-bg"></div>
+      <div class="cta-glow-orb"></div>
+      <div class="cta-in">
+        <p class="label">Hablemos</p>
+        <h2 class="cta-h">Cuéntanos tu idea.<br/>Nosotros la construimos.</h2>
+        <p class="cta-lead">Escríbenos por WhatsApp o correo y conversemos sobre tu proyecto. Sin compromiso.</p>
+        <div class="cta-btns">
+          <a href="https://wa.me/573166749043?text=Hola%20JM%20Studios%2C%20quiero%20información%20sobre%20sus%20servicios" target="_blank" rel="noopener" class="btn-wa">
+            <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M.5 23.5l1.65-6A11.4 11.4 0 0 1 .6 11.6 11.5 11.5 0 1 1 12.1 23.1a11.5 11.5 0 0 1-5.5-1.4L.5 23.5ZM6.9 19.8l.35.2a9.5 9.5 0 0 0 4.85 1.33A9.55 9.55 0 1 0 2.55 11.6c0 1.7.46 3.36 1.32 4.82l.22.36-1 3.6 3.8-.98ZM17.8 14.3c-.07-.12-.27-.2-.56-.34-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5l-.57-.02c-.2 0-.52.07-.8.38-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41Z"/></svg>
+            WhatsApp: 316 674 9043
+          </a>
+          <a href="mailto:studiosjm0000@gmail.com?subject=Proyecto%20JM%20Studios" class="btn-email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+            studiosjm0000@gmail.com
+          </a>
+        </div>
+        <div class="cta-contacts">
+          <div class="cc">
+            <div class="cc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></div>
+            <div><div class="cc-lbl">Correo</div><div class="cc-val">studiosjm0000@gmail.com</div></div>
+          </div>
+          <div class="cc">
+            <div class="cc-ic"><svg viewBox="0 0 24 24" fill="rgba(167,139,250,.85)" width="20" height="20"><path d="M.5 23.5l1.65-6A11.4 11.4 0 0 1 .6 11.6 11.5 11.5 0 1 1 12.1 23.1a11.5 11.5 0 0 1-5.5-1.4L.5 23.5ZM6.9 19.8l.35.2a9.5 9.5 0 0 0 4.85 1.33A9.55 9.55 0 1 0 2.55 11.6c0 1.7.46 3.36 1.32 4.82l.22.36-1 3.6 3.8-.98Z"/></svg></div>
+            <div><div class="cc-lbl">WhatsApp</div><div class="cc-val">+57 316 674 9043</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#hero" class="jm-logo" style="text-decoration:none">
+          <div class="logo-bars">
+            <span class="lbar lb1"></span>
+            <span class="lbar lb2"></span>
+            <span class="lbar lb3"></span>
+          </div>
+          <span class="logo-text">jm_studios</span>
+        </a>
+        <p>Creamos herramientas digitales que impulsan empresas: webs, software, automatización e IA.</p>
+      </div>
+      <div class="foot-nav">
+        <div class="foot-col">
+          <h4>Servicios</h4>
+          <a href="#servicios">Desarrollo web</a>
+          <a href="#servicios">Automatización</a>
+          <a href="#servicios">Software a medida</a>
+          <a href="#servicios">Inteligencia artificial</a>
+        </div>
+        <div class="foot-col">
+          <h4>Empresa</h4>
+          <a href="#proceso">Nuestro proceso</a>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+        <div class="foot-col">
+          <h4>Contacto</h4>
+          <a href="mailto:studiosjm0000@gmail.com">studiosjm0000@gmail.com</a>
+          <a href="https://wa.me/573166749043">+57 316 674 9043</a>
+          <a href="#">@jm_studios.co</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 JM Studios · Estudio digital · Bogotá, Colombia</p>
+      <p style="font-style:italic;color:rgba(255,255,255,.14)">Tu idea, nuestra misión.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ FAB ════════════════════════════════════════════ -->
+<a href="https://wa.me/573166749043?text=Hola%20JM%20Studios" target="_blank" rel="noopener" class="fab" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M.5 23.5l1.65-6A11.4 11.4 0 0 1 .6 11.6 11.5 11.5 0 1 1 12.1 23.1a11.5 11.5 0 0 1-5.5-1.4L.5 23.5ZM6.9 19.8l.35.2a9.5 9.5 0 0 0 4.85 1.33A9.55 9.55 0 1 0 2.55 11.6c0 1.7.46 3.36 1.32 4.82l.22.36-1 3.6 3.8-.98ZM17.8 14.3c-.07-.12-.27-.2-.56-.34-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5l-.57-.02c-.2 0-.52.07-.8.38-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41Z"/></svg>
+</a>
+
+<!-- ══ SCRIPT ═════════════════════════════════════════ -->
+<script>
+// ── Galaxy starfield ────────────────────────────────
+(function() {
+  var galaxy = document.getElementById('galaxy');
+  var canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;inset:0;z-index:1;width:100%;height:100%';
+  galaxy.appendChild(canvas);
+
+  var stars = [];
+  var W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  // Generate stars once (normalized coords so resize works)
+  for (var i = 0; i < 380; i++) {
+    stars.push({
+      x: Math.random(),
+      y: Math.random(),
+      r: Math.random() * 1.3 + 0.15,
+      base: Math.random() * 0.55 + 0.08,
+      speed: Math.random() * 2200 + 900,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+
+  // A few larger "bright" stars
+  for (var j = 0; j < 18; j++) {
+    stars.push({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 2 + 1.5,
+      base: Math.random() * 0.6 + 0.3,
+      speed: Math.random() * 3500 + 1500,
+      phase: Math.random() * Math.PI * 2,
+      bright: true
+    });
+  }
+
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  var ctx = canvas.getContext('2d');
+  function frame(t) {
+    ctx.clearRect(0, 0, W, H);
+    for (var k = 0; k < stars.length; k++) {
+      var s = stars[k];
+      var twinkle = 0.5 + 0.5 * Math.sin(t / s.speed + s.phase);
+      var a = s.base * (0.35 + 0.65 * twinkle);
+      ctx.beginPath();
+      ctx.arc(s.x * W, s.y * H, s.r, 0, 6.2832);
+      ctx.fillStyle = s.bright
+        ? 'rgba(200,200,255,' + a.toFixed(3) + ')'
+        : 'rgba(255,255,255,' + a.toFixed(3) + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// ── Hero word-blur headline ─────────────────────────
+var WORDS = ['Software,', 'IA', 'y', 'automatización', 'para', 'impulsar', 'tu', 'empresa.'];
+var hw = document.getElementById('hw');
+WORDS.forEach(function(w, i) {
+  var s = document.createElement('span');
+  s.className = 'w' + (i >= 5 ? ' grad' : '');
+  s.textContent = w;
+  s.style.transitionDelay = (0.12 + i * 0.09) + 's';
+  hw.appendChild(s);
+});
+setTimeout(function() {
+  hw.querySelectorAll('.w').forEach(function(s) { s.classList.add('in'); });
+  var sub = document.getElementById('h-sub');
+  var ctas = document.getElementById('h-ctas');
+  var foot = document.getElementById('h-foot');
+  if (sub) sub.classList.add('in');
+  if (ctas) ctas.classList.add('in');
+  if (foot) foot.classList.add('in');
+}, 150);
+
+// ── Scroll reveals ───────────────────────────────────
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.07, rootMargin: '0px 0px -5% 0px' });
+document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+setTimeout(function() {
+  document.querySelectorAll('.reveal:not(.in)').forEach(function(el) { el.classList.add('in'); });
+}, 2500);
+
+// ── Nav scroll ───────────────────────────────────────
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function() {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+// ── Project card hover tint ──────────────────────────
+document.querySelectorAll('.proj-card').forEach(function(card) {
+  var name = card.querySelector('.proj-name');
+  var color = name ? name.style.color : '';
+  if (!color) return;
+  card.addEventListener('mouseenter', function() { card.style.borderColor = color.replace(')', ',.3)').replace('rgb(', 'rgba(') || 'rgba(139,92,246,.3)'; });
+  card.addEventListener('mouseleave', function() { card.style.borderColor = ''; });
+});
+</script>
+</body>
+</html>
