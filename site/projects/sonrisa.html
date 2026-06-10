@@ -38,7 +38,8 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);height:
 .tb-notif-dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#ef4444;border:2px solid white}
 .tb-user{display:flex;align-items:center;gap:8px;cursor:pointer}
 .tb-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--cy),#0891b2);
-  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0}
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;overflow:hidden}
+.tb-avatar img{width:100%;height:100%;object-fit:cover}
 .tb-uname{font-size:13px;font-weight:600;color:var(--text)}
 
 /* LAYOUT */
@@ -94,7 +95,8 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);height:
 .cita-row:hover{background:#f8fafc}
 .cita-hora{font-size:12px;font-weight:700;color:var(--cy);width:36px;flex-shrink:0;font-variant-numeric:tabular-nums}
 .cita-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;flex-shrink:0}
+  font-size:11px;font-weight:700;flex-shrink:0;overflow:hidden}
+.cita-avatar img{width:100%;height:100%;object-fit:cover}
 .cita-info{flex:1}
 .cita-nombre{font-size:13px;font-weight:600}
 .cita-detalle{font-size:11px;color:var(--muted);margin-top:1px}
@@ -178,7 +180,7 @@ td{padding:8px 12px;font-size:12px;color:var(--text)}
       <div class="tb-notif-dot"></div>
     </div>
     <div class="tb-user">
-      <div class="tb-avatar">AL</div>
+      <div class="tb-avatar"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=60&q=80&auto=format&fit=crop&crop=face" alt="Dra. Ana Lozano"></div>
       <div class="tb-uname">Dra. Ana Lozano</div>
     </div>
   </div>
@@ -265,12 +267,12 @@ td{padding:8px 12px;font-size:12px;color:var(--text)}
         <span class="ac-title">Agenda de hoy</span>
         <span class="ac-date" id="ac-date-lbl">Cargando...</span>
       </div>
-      <div class="cita-row"><div class="cita-hora">8:00</div><div class="cita-avatar" style="background:#e0f2fe;color:#0284c7">MG</div><div class="cita-info"><div class="cita-nombre">María García</div><div class="cita-detalle">Limpieza dental · Dra. Ana Lozano</div></div><div class="cita-doc">CC 52.345.678<span>Ficha #0234</span></div><span class="cbadge done">Completada</span></div>
-      <div class="cita-row"><div class="cita-hora">9:30</div><div class="cita-avatar" style="background:#f0fdf4;color:#16a34a">CR</div><div class="cita-info"><div class="cita-nombre">Carlos Ríos</div><div class="cita-detalle">Extracción muela del juicio · Dr. Carlos Reyes</div></div><div class="cita-doc">CC 80.123.456<span>Ficha #0187</span></div><span class="cbadge done">Completada</span></div>
-      <div class="cita-row"><div class="cita-hora">11:00</div><div class="cita-avatar" style="background:#fffbeb;color:#d97706">AM</div><div class="cita-info"><div class="cita-nombre">Ana Moreno</div><div class="cita-detalle">Control ortodoncia · Dra. Ana Lozano</div></div><div class="cita-doc">CC 1.020.456.789<span>Ficha #0412</span></div><span class="cbadge pending">En sala</span></div>
-      <div class="cita-row"><div class="cita-hora">2:00</div><div class="cita-avatar" style="background:#fef2f2;color:#dc2626">LP</div><div class="cita-info"><div class="cita-nombre">Luis Pérez</div><div class="cita-detalle">Urgencia: dolor molar · Dr. Jorge Peña</div></div><div class="cita-doc">CC 19.876.543<span>Nuevo paciente</span></div><span class="cbadge urgent">Urgente</span></div>
-      <div class="cita-row"><div class="cita-hora">3:30</div><div class="cita-avatar" style="background:#f0f9ff;color:#0369a1">SR</div><div class="cita-info"><div class="cita-nombre">Sofía Ramírez</div><div class="cita-detalle">Blanqueamiento dental · Dra. Ana Lozano</div></div><div class="cita-doc">CC 1.014.567.890<span>Ficha #0301</span></div><span class="cbadge sched">Programada</span></div>
-      <div class="cita-row"><div class="cita-hora">5:00</div><div class="cita-avatar" style="background:#f5f3ff;color:#7c3aed">JV</div><div class="cita-info"><div class="cita-nombre">Jorge Vargas</div><div class="cita-detalle">Implante dental · Dr. Carlos Reyes</div></div><div class="cita-doc">CC 19.234.567<span>Ficha #0089</span></div><span class="cbadge sched">Programada</span></div>
+      <div class="cita-row"><div class="cita-hora">8:00</div><div class="cita-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&q=80&auto=format&fit=crop&crop=face" alt="María García"></div><div class="cita-info"><div class="cita-nombre">María García</div><div class="cita-detalle">Limpieza dental · Dra. Ana Lozano</div></div><div class="cita-doc">CC 52.345.678<span>Ficha #0234</span></div><span class="cbadge done">Completada</span></div>
+      <div class="cita-row"><div class="cita-hora">9:30</div><div class="cita-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&q=80&auto=format&fit=crop&crop=face" alt="Carlos Ríos"></div><div class="cita-info"><div class="cita-nombre">Carlos Ríos</div><div class="cita-detalle">Extracción muela del juicio · Dr. Carlos Reyes</div></div><div class="cita-doc">CC 80.123.456<span>Ficha #0187</span></div><span class="cbadge done">Completada</span></div>
+      <div class="cita-row"><div class="cita-hora">11:00</div><div class="cita-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&q=80&auto=format&fit=crop&crop=face" alt="Ana Moreno"></div><div class="cita-info"><div class="cita-nombre">Ana Moreno</div><div class="cita-detalle">Control ortodoncia · Dra. Ana Lozano</div></div><div class="cita-doc">CC 1.020.456.789<span>Ficha #0412</span></div><span class="cbadge pending">En sala</span></div>
+      <div class="cita-row"><div class="cita-hora">2:00</div><div class="cita-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&q=80&auto=format&fit=crop&crop=face" alt="Luis Pérez"></div><div class="cita-info"><div class="cita-nombre">Luis Pérez</div><div class="cita-detalle">Urgencia: dolor molar · Dr. Jorge Peña</div></div><div class="cita-doc">CC 19.876.543<span>Nuevo paciente</span></div><span class="cbadge urgent">Urgente</span></div>
+      <div class="cita-row"><div class="cita-hora">3:30</div><div class="cita-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&q=80&auto=format&fit=crop&crop=face" alt="Sofía Ramírez"></div><div class="cita-info"><div class="cita-nombre">Sofía Ramírez</div><div class="cita-detalle">Blanqueamiento dental · Dra. Ana Lozano</div></div><div class="cita-doc">CC 1.014.567.890<span>Ficha #0301</span></div><span class="cbadge sched">Programada</span></div>
+      <div class="cita-row"><div class="cita-hora">5:00</div><div class="cita-avatar"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&q=80&auto=format&fit=crop&crop=face" alt="Jorge Vargas"></div><div class="cita-info"><div class="cita-nombre">Jorge Vargas</div><div class="cita-detalle">Implante dental · Dr. Carlos Reyes</div></div><div class="cita-doc">CC 19.234.567<span>Ficha #0089</span></div><span class="cbadge sched">Programada</span></div>
     </div>
 
     <!-- Col stats -->

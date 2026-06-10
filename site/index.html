@@ -292,8 +292,22 @@ a{color:inherit;text-decoration:none}
   border:1px solid rgba(255,255,255,.075);box-shadow:var(--sh);
   display:flex;flex-direction:column;
   transition:transform .28s var(--ease),border-color .28s,box-shadow .28s;
+  cursor:pointer;position:relative;
 }
-.proj-card:hover{transform:translateY(-5px);box-shadow:0 16px 56px rgba(0,0,0,.6)}
+.proj-card:hover{transform:translateY(-6px);box-shadow:0 20px 64px rgba(0,0,0,.65)}
+.proj-card::after{
+  content:'Ver demo →';
+  position:absolute;inset:0;
+  background:rgba(5,3,20,.0);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;letter-spacing:.04em;color:rgba(255,255,255,0);
+  transition:background .25s,color .25s;
+  pointer-events:none;
+}
+.proj-card:hover::after{
+  background:rgba(5,3,20,.18);
+  color:rgba(255,255,255,.0);
+}
 .browser-bar{
   background:rgba(0,0,0,.65);height:28px;display:flex;align-items:center;gap:5px;padding:0 10px;
   flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.05);
@@ -317,17 +331,7 @@ a{color:inherit;text-decoration:none}
 .metric-sep{width:1px;height:26px;background:rgba(255,255,255,.07)}
 .proj-note{text-align:center;font-size:11px;color:rgba(255,255,255,.14);margin-top:40px;letter-spacing:.06em}
 
-/* ── Botón Abrir demo ─────────────────────── */
-.proj-open{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.38);
-  color:var(--p2);border-radius:var(--r-f);padding:7px 16px;
-  font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;
-  margin-bottom:12px;
-  transition:background .2s,border-color .2s,transform .2s var(--ease);
-}
-.proj-open:hover{background:rgba(139,92,246,.22);border-color:rgba(167,139,250,.65);transform:translateY(-1px)}
-.proj-open svg{flex-shrink:0}
+/* proj-open removed — whole card is clickable */
 
 /* ── Modal overlay ────────────────────────── */
 #proj-modal{
@@ -699,7 +703,6 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Restaurante · Gastronomía</p>
           <h3 class="proj-name" style="color:#d4a955">La Cosecha</h3>
-          <button class="proj-open" type="button" data-project="cosecha">Abrir demo</button>
           <p class="proj-desc">Sitio con menú digital interactivo, reservas en tiempo real y galería visual. Carga ultra-rápida y SEO posicionado en Google.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#d4a955">+180%</div><div class="metric-l">Reservas online</div></div>
@@ -758,7 +761,6 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Distribuidora · Logística</p>
           <h3 class="proj-name" style="color:#818cf8">Andina Express</h3>
-          <button class="proj-open" type="button" data-project="andina">Abrir demo</button>
           <p class="proj-desc">Facturación automática y seguimientos por correo. Los pedidos pasan de la web al sistema contable sin ninguna digitación manual.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#818cf8">15h</div><div class="metric-l">Ahorro/semana</div></div>
@@ -809,7 +811,6 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Clínica dental · Salud</p>
           <h3 class="proj-name" style="color:#22d3ee">Sonrisa CRM</h3>
-          <button class="proj-open" type="button" data-project="sonrisa">Abrir demo</button>
           <p class="proj-desc">Sistema privado de citas, historias clínicas e inventario. Control total centralizado con reportes en tiempo real y cero papel.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#22d3ee">3→1</div><div class="metric-l">Sistemas</div></div>
@@ -859,7 +860,6 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Inmobiliaria · Bienes raíces</p>
           <h3 class="proj-name" style="color:#a78bfa">Vértice IA</h3>
-          <button class="proj-open" type="button" data-project="vertice">Abrir demo</button>
           <p class="proj-desc">Asistente IA que responde consultas, filtra propiedades y agenda visitas las 24 horas. Sin perder un solo cliente potencial.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#a78bfa">24/7</div><div class="metric-l">Respuesta auto</div></div>
@@ -1149,10 +1149,9 @@ document.querySelectorAll('.proj-card').forEach(function(card) {
     setTimeout(function(){ iframe.src = 'about:blank'; }, 350);
   }
 
-  document.querySelectorAll('.proj-open').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      openModal(btn.getAttribute('data-project'));
+  document.querySelectorAll('.proj-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      openModal(card.getAttribute('data-project'));
     });
   });
 

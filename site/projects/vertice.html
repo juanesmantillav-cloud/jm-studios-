@@ -81,10 +81,13 @@ section{position:relative;z-index:1;padding:0 28px 52px;max-width:1000px;margin:
 .prop{background:var(--glass);border:1px solid var(--bd);border-radius:var(--r);
   overflow:hidden;transition:border-color .2s,transform .2s;cursor:pointer}
 .prop:hover{border-color:rgba(139,92,246,.35);transform:translateY(-3px)}
-.prop-img{height:150px;position:relative;display:flex;align-items:flex-end;padding:12px}
+.prop-img{height:160px;position:relative;display:flex;align-items:flex-end;padding:12px;overflow:hidden}
+.prop-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.prop:hover .prop-img img{transform:scale(1.06)}
+.prop-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%);pointer-events:none}
 .prop-type{background:rgba(0,0,0,.7);border:1px solid rgba(139,92,246,.4);color:var(--p2);
   border-radius:5px;padding:3px 9px;font-size:10px;font-weight:700}
-.prop-ia-dot{position:absolute;top:10px;right:10px;background:rgba(34,197,94,.15);
+.prop-ia-dot{position:absolute;top:10px;right:10px;z-index:1;background:rgba(34,197,94,.85);
   border:1px solid rgba(34,197,94,.3);border-radius:10px;padding:3px 8px;
   font-size:10px;font-weight:600;color:var(--green)}
 .prop-body{padding:14px}
@@ -260,12 +263,12 @@ section{position:relative;z-index:1;padding:0 28px 52px;max-width:1000px;margin:
 <script>
 // Props data
 var props=[
-  {type:'apartamento',price:'$380.000.000',name:'Apto Chapinero',loc:'Chapinero, Bogotá',m2:72,rooms:2,baths:2,bg:'linear-gradient(135deg,#1a0a33,#2e1258)',ia:'IA recomienda'},
-  {type:'casa',price:'$850.000.000',name:'Casa Usaquén',loc:'Usaquén, Bogotá',m2:180,rooms:4,baths:3,bg:'linear-gradient(135deg,#0d1a33,#192a52)',ia:'3 visitas hoy'},
-  {type:'oficina',price:'$1.200.000.000',name:'Oficina El Poblado',loc:'El Poblado, Medellín',m2:120,rooms:6,baths:2,bg:'linear-gradient(135deg,#1a0d33,#2e1a52)'},
-  {type:'apartamento',price:'$520.000.000',name:'Apto Laureles',loc:'Laureles, Medellín',m2:90,rooms:3,baths:2,bg:'linear-gradient(135deg,#200a40,#3a1465)',ia:'Nuevo'},
-  {type:'casa',price:'$1.800.000.000',name:'Casa Colonial — Manga',loc:'Manga, Cartagena',m2:320,rooms:6,baths:4,bg:'linear-gradient(135deg,#180c35,#2b1860)'},
-  {type:'apartamento',price:'$2.400.000.000',name:'Penthouse Rodadero',loc:'Santa Marta',m2:210,rooms:4,baths:3,bg:'linear-gradient(135deg,#1c0a3d,#361475)',ia:'Premium'},
+  {type:'apartamento',price:'$380.000.000',name:'Apto Chapinero',loc:'Chapinero, Bogotá',m2:72,rooms:2,baths:2,img:'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80&auto=format&fit=crop',ia:'IA recomienda'},
+  {type:'casa',price:'$850.000.000',name:'Casa Usaquén',loc:'Usaquén, Bogotá',m2:180,rooms:4,baths:3,img:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80&auto=format&fit=crop',ia:'3 visitas hoy'},
+  {type:'oficina',price:'$1.200.000.000',name:'Oficina El Poblado',loc:'El Poblado, Medellín',m2:120,rooms:6,baths:2,img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&auto=format&fit=crop'},
+  {type:'apartamento',price:'$520.000.000',name:'Apto Laureles',loc:'Laureles, Medellín',m2:90,rooms:3,baths:2,img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80&auto=format&fit=crop',ia:'Nuevo'},
+  {type:'casa',price:'$1.800.000.000',name:'Casa Colonial — Manga',loc:'Manga, Cartagena',m2:320,rooms:6,baths:4,img:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80&auto=format&fit=crop'},
+  {type:'apartamento',price:'$2.400.000.000',name:'Penthouse Rodadero',loc:'Santa Marta',m2:210,rooms:4,baths:3,img:'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=600&q=80&auto=format&fit=crop',ia:'Premium'},
 ];
 
 function renderProps(f){
@@ -275,7 +278,7 @@ function renderProps(f){
     var lbl=p.type.charAt(0).toUpperCase()+p.type.slice(1);
     var ia=p.ia?'<div class="prop-ia-dot">✦ '+p.ia+'</div>':'';
     return '<div class="prop" onclick="selectProp(\''+p.name+'\')">'
-      +'<div class="prop-img" style="background:'+p.bg+'">'+ia+'<div class="prop-type">'+lbl+'</div></div>'
+      +'<div class="prop-img"><img src="'+p.img+'" alt="'+p.name+'" loading="lazy">'+ia+'<div class="prop-type" style="position:relative;z-index:1">'+lbl+'</div></div>'
       +'<div class="prop-body">'
       +'<div class="prop-price">'+p.price+'</div>'
       +'<div class="prop-name">'+p.name+'</div>'
