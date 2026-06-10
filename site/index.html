@@ -317,6 +317,67 @@ a{color:inherit;text-decoration:none}
 .metric-sep{width:1px;height:26px;background:rgba(255,255,255,.07)}
 .proj-note{text-align:center;font-size:11px;color:rgba(255,255,255,.14);margin-top:40px;letter-spacing:.06em}
 
+/* ── Botón Abrir demo ─────────────────────── */
+.proj-open{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.38);
+  color:var(--p2);border-radius:var(--r-f);padding:7px 16px;
+  font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;
+  margin-bottom:12px;
+  transition:background .2s,border-color .2s,transform .2s var(--ease);
+}
+.proj-open:hover{background:rgba(139,92,246,.22);border-color:rgba(167,139,250,.65);transform:translateY(-1px)}
+.proj-open svg{flex-shrink:0}
+
+/* ── Modal overlay ────────────────────────── */
+#proj-modal{
+  position:fixed;inset:0;z-index:600;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s var(--ease);
+}
+#proj-modal.open{opacity:1;pointer-events:all}
+.modal-backdrop{
+  position:absolute;inset:0;
+  background:rgba(3,1,14,.88);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+}
+.modal-box{
+  position:relative;z-index:1;width:100%;max-width:900px;
+  background:rgba(9,5,26,.97);
+  border:1px solid rgba(255,255,255,.1);border-radius:var(--r-xl);
+  box-shadow:0 32px 100px rgba(0,0,0,.75),0 0 0 1px rgba(139,92,246,.18);
+  overflow:hidden;
+  transform:scale(.94) translateY(24px);
+  transition:transform .38s var(--ease);
+}
+#proj-modal.open .modal-box{transform:none}
+.modal-chrome{
+  background:rgba(0,0,0,.7);height:36px;
+  display:flex;align-items:center;gap:6px;padding:0 14px;
+  border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;
+}
+.modal-chrome .mdot{width:10px;height:10px;border-radius:50%}
+.modal-addr{
+  flex:1;background:rgba(255,255,255,.06);border-radius:5px;
+  height:18px;margin:0 12px;display:flex;align-items:center;padding:0 10px;
+}
+.modal-addr span{font-size:11px;color:rgba(255,255,255,.32);font-family:monospace}
+.modal-close{
+  width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;
+  justify-content:center;cursor:pointer;color:rgba(255,255,255,.55);font-size:14px;line-height:1;
+  transition:background .15s,color .15s;
+}
+.modal-close:hover{background:rgba(255,255,255,.16);color:white}
+#modal-screen-wrap{overflow:hidden;flex-shrink:0}
+.modal-footer{
+  padding:18px 24px;border-top:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.modal-info-name{font-size:20px;font-weight:700;letter-spacing:-.03em}
+.modal-info-desc{font-size:13px;color:var(--muted);margin-top:4px;max-width:480px;line-height:1.55}
+
 /* ════════════════════════════════════════════════
    PROCESS
 ════════════════════════════════════════════════ */
@@ -594,7 +655,7 @@ footer{
     <div class="proj-grid">
 
       <!-- La Cosecha -->
-      <article class="proj-card reveal" style="transition-delay:.05s">
+      <article class="proj-card reveal" data-project="cosecha" style="transition-delay:.05s">
         <div class="browser-bar">
           <div class="dot" style="background:#ff5f57"></div>
           <div class="dot" style="background:#febc2e"></div>
@@ -638,6 +699,7 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Restaurante · Gastronomía</p>
           <h3 class="proj-name" style="color:#d4a955">La Cosecha</h3>
+          <button class="proj-open" type="button" data-project="cosecha">Abrir demo</button>
           <p class="proj-desc">Sitio con menú digital interactivo, reservas en tiempo real y galería visual. Carga ultra-rápida y SEO posicionado en Google.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#d4a955">+180%</div><div class="metric-l">Reservas online</div></div>
@@ -650,7 +712,7 @@ footer{
       </article>
 
       <!-- Andina Express -->
-      <article class="proj-card reveal" style="transition-delay:.1s">
+      <article class="proj-card reveal" data-project="andina" style="transition-delay:.1s">
         <div class="browser-bar">
           <div class="dot" style="background:#ff5f57"></div>
           <div class="dot" style="background:#febc2e"></div>
@@ -696,6 +758,7 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Distribuidora · Logística</p>
           <h3 class="proj-name" style="color:#818cf8">Andina Express</h3>
+          <button class="proj-open" type="button" data-project="andina">Abrir demo</button>
           <p class="proj-desc">Facturación automática y seguimientos por correo. Los pedidos pasan de la web al sistema contable sin ninguna digitación manual.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#818cf8">15h</div><div class="metric-l">Ahorro/semana</div></div>
@@ -708,7 +771,7 @@ footer{
       </article>
 
       <!-- Sonrisa CRM -->
-      <article class="proj-card reveal" style="transition-delay:.15s">
+      <article class="proj-card reveal" data-project="sonrisa" style="transition-delay:.15s">
         <div class="browser-bar">
           <div class="dot" style="background:#ff5f57"></div>
           <div class="dot" style="background:#febc2e"></div>
@@ -746,6 +809,7 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Clínica dental · Salud</p>
           <h3 class="proj-name" style="color:#22d3ee">Sonrisa CRM</h3>
+          <button class="proj-open" type="button" data-project="sonrisa">Abrir demo</button>
           <p class="proj-desc">Sistema privado de citas, historias clínicas e inventario. Control total centralizado con reportes en tiempo real y cero papel.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#22d3ee">3→1</div><div class="metric-l">Sistemas</div></div>
@@ -758,7 +822,7 @@ footer{
       </article>
 
       <!-- Vértice IA -->
-      <article class="proj-card reveal" style="transition-delay:.2s">
+      <article class="proj-card reveal" data-project="vertice" style="transition-delay:.2s">
         <div class="browser-bar">
           <div class="dot" style="background:#ff5f57"></div>
           <div class="dot" style="background:#febc2e"></div>
@@ -795,6 +859,7 @@ footer{
         <div class="proj-body">
           <p class="proj-sector">Inmobiliaria · Bienes raíces</p>
           <h3 class="proj-name" style="color:#a78bfa">Vértice IA</h3>
+          <button class="proj-open" type="button" data-project="vertice">Abrir demo</button>
           <p class="proj-desc">Asistente IA que responde consultas, filtra propiedades y agenda visitas las 24 horas. Sin perder un solo cliente potencial.</p>
           <div class="proj-metrics">
             <div><div class="metric-n" style="color:#a78bfa">24/7</div><div class="metric-l">Respuesta auto</div></div>
@@ -1040,6 +1105,89 @@ document.querySelectorAll('.proj-card').forEach(function(card) {
   card.addEventListener('mouseenter', function() { card.style.borderColor = color.replace(')', ',.3)').replace('rgb(', 'rgba(') || 'rgba(139,92,246,.3)'; });
   card.addEventListener('mouseleave', function() { card.style.borderColor = ''; });
 });
+// ── Project card modals ─────────────────────────────
+(function(){
+  var modal = document.getElementById('proj-modal');
+  var backdrop = document.getElementById('modal-backdrop');
+  var screenWrap = document.getElementById('modal-screen-wrap');
+  var infoName = document.getElementById('modal-info-name');
+  var infoDesc = document.getElementById('modal-info-desc');
+  var addrSpan = document.getElementById('modal-addr-text');
+
+  var projects = {
+    cosecha:{ name:'La Cosecha', desc:'Menú digital interactivo, reservas en tiempo real y galería visual. Carga ultra-rápida y SEO posicionado en Google.', domain:'lacosecha.co', color:'#d4a955' },
+    andina:{ name:'Andina Express', desc:'Facturación automática y seguimientos por correo. Los pedidos pasan de la web al sistema contable sin ninguna digitación manual.', domain:'andinaexpress.co', color:'#818cf8' },
+    sonrisa:{ name:'Sonrisa CRM', desc:'Sistema privado de citas, historias clínicas e inventario. Control total centralizado con reportes en tiempo real y cero papel.', domain:'sonrisacrm.co', color:'#22d3ee' },
+    vertice:{ name:'Vértice IA', desc:'Asistente IA que responde consultas, filtra propiedades y agenda visitas las 24 horas. Sin perder un solo cliente potencial.', domain:'vertice-ia.co', color:'#a78bfa' }
+  };
+
+  function openModal(id) {
+    var p = projects[id];
+    if (!p) return;
+    var card = document.querySelector('[data-project="'+id+'"]');
+    if (!card) return;
+
+    var src = card.querySelector('.browser-screen');
+    if (src) {
+      var clone = src.cloneNode(true);
+      clone.style.width = '100%';
+      clone.style.height = '';
+      clone.style.maxHeight = '420px';
+      clone.style.overflowY = 'hidden';
+      clone.style.borderRadius = '0';
+      screenWrap.innerHTML = '';
+      screenWrap.appendChild(clone);
+    }
+
+    infoName.textContent = p.name;
+    infoName.style.color = p.color;
+    infoDesc.textContent = p.desc;
+    addrSpan.textContent = p.domain;
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(function(){ screenWrap.innerHTML = ''; }, 400);
+  }
+
+  document.querySelectorAll('.proj-open').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openModal(btn.getAttribute('data-project'));
+    });
+  });
+
+  backdrop.addEventListener('click', closeModal);
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
 </script>
+
+<!-- ── Project modal ──────────────────────────── -->
+<div id="proj-modal" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal-box">
+    <div class="modal-chrome">
+      <span class="mdot" style="background:#ff5f57"></span>
+      <span class="mdot" style="background:#febc2e"></span>
+      <span class="mdot" style="background:#28c840"></span>
+      <div class="modal-addr"><span id="modal-addr-text"></span></div>
+      <button class="modal-close" id="modal-close-btn" aria-label="Cerrar">&#x2715;</button>
+    </div>
+    <div id="modal-screen-wrap"></div>
+    <div class="modal-footer">
+      <div>
+        <div class="modal-info-name" id="modal-info-name"></div>
+        <div class="modal-info-desc" id="modal-info-desc"></div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
